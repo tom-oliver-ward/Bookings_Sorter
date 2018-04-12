@@ -22,8 +22,7 @@ namespace BookingsSorter
             StartPosition = startPosition;
             FinishPosition = finishPosition;
             LaserUserPosition = laserUserPosition;
-            CommercialPosition = commercialPosition;
-            
+            CommercialPosition = commercialPosition;            
         }
 
     }

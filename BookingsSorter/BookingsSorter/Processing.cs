@@ -48,6 +48,9 @@ namespace BookingsSorter
             //steps through worksheets (should only be one)
             foreach (var worksheet in Workbook.Worksheets(filename))
             {
+                //number of arrays and columns                
+                string[,] Data = new string[worksheet.Rows.Count(),worksheet.NumberOfColumns];                              
+
                 foreach (var row in worksheet.Rows)
                 {
                     //updates user as to which row hence spectra
@@ -59,10 +62,11 @@ namespace BookingsSorter
                     foreach (var cell in row.Cells)
                     {
                         dataTransfer.readHeadings(j, cell, this);
-                        dataTransfer.readCurrentLine(j, cell, this);
+                        Data[j, k] = cell.Text;
                         k++;
                     }
-                    findHeadingPostitons();
+                    dataTransfer.findHeadingPostitons(Headings ,CurrentLine);
+                    dataTransfer.dataEntry(Headings, CurrentLine);
 
                     j++;
                     CurrentLine.Clear();
@@ -71,15 +75,6 @@ namespace BookingsSorter
 
         }
 
-        private void findHeadingPostitons()
-        {
-            for (int i=0;i<CurrentLine.Count;i++)
-            {
-                if(Headings[i]=="Photon Factory Systems")
-                {
-                    
-                }
-            }
-        }
+        
     }
 }
