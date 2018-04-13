@@ -64,10 +64,6 @@ namespace BookingsSorter
             processing.readExcel(this);
         }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Clears all of the existing spreadsheets from list
@@ -86,19 +82,25 @@ namespace BookingsSorter
         /// <param name="e"></param>
         private void buttonOutputLoc_Click(object sender, EventArgs e)
         {
-            // Show the dialog and get result.
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                file = openFileDialog1.FileName;
+                textBoxOutputLoc.Text = folderBrowserDialog1.SelectedPath;
             }
-            textBoxOutputLoc.Text = file;
-            buttonSort.Enabled = true;
         }
 
         private void textBoxOutputLoc_TextChanged(object sender, EventArgs e)
         {
+            buttonSort.Enabled = true;
+        }
+
+        private void textBox_Period_TextChanged(object sender, EventArgs e)
+        {
             buttonOutputLoc.Enabled = true;
+        }
+
+        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
+        {
+
         }
     }
 }

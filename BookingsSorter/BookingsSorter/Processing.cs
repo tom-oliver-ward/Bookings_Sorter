@@ -15,7 +15,7 @@ namespace BookingsSorter
         HeadingPostitions headingPostitions = new HeadingPostitions(0,0,0,0,0,0);
         public List<string> Headings = new List<string>();
         public List<string> CurrentLine = new List<string>();
-        
+        public int ProjectCount = 0;
         //make an object
 
 
@@ -62,8 +62,8 @@ namespace BookingsSorter
                         dataTransfer.readCurrentLine(j, cell, this);
                         k++;
                     }
-                    findHeadingPostitons();
-
+                    dataTransfer.findHeadingPostitons(Headings, CurrentLine);
+                    dataTransfer.transferLine(CurrentLine);
                     j++;
                     CurrentLine.Clear();
                 }                 
@@ -71,15 +71,6 @@ namespace BookingsSorter
 
         }
 
-        private void findHeadingPostitons()
-        {
-            for (int i=0;i<CurrentLine.Count;i++)
-            {
-                if(Headings[i]=="Photon Factory Systems")
-                {
-                    
-                }
-            }
-        }
+        
     }
 }

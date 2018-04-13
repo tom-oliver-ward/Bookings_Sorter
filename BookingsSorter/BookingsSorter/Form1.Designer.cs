@@ -38,6 +38,7 @@
             this.textBoxExcelLine = new System.Windows.Forms.TextBox();
             this.FilenumTB = new System.Windows.Forms.TextBox();
             this.button_Clear = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // SpreadSheets2Sort
@@ -64,6 +65,7 @@
             this.textBox_Period.Name = "textBox_Period";
             this.textBox_Period.Size = new System.Drawing.Size(100, 20);
             this.textBox_Period.TabIndex = 12;
+            this.textBox_Period.TextChanged += new System.EventHandler(this.textBox_Period_TextChanged);
             // 
             // label2
             // 
@@ -125,6 +127,10 @@
             this.button_Clear.Text = "Clear All";
             this.button_Clear.UseVisualStyleBackColor = true;
             // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,6 +166,7 @@
         public System.Windows.Forms.TextBox textBoxExcelLine;
         public System.Windows.Forms.TextBox FilenumTB;
         private System.Windows.Forms.Button button_Clear;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 

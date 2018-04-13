@@ -7,6 +7,7 @@ namespace BookingsSorter
 {
     class DataTransfer
     {
+        public List<Project> ProjectList=new List<Project>();
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
         //Project project = new Project(false, null, null, null, null);
 
@@ -46,6 +47,16 @@ namespace BookingsSorter
 
             
                 
+        }
+
+        internal void transferLine(List<string> CurrentLine)
+        {
+            Dictionary<string,int> projectNames = new Dictionary<string,int>();
+            
+            ProjectList.Find(x => x.ProjectName.Contains("test"));
+            
+            //need itemized list
+            
         }
     }
 }
