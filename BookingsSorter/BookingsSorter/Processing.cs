@@ -15,6 +15,7 @@ namespace BookingsSorter
         HeadingPostitions headingPostitions = new HeadingPostitions(0,0,0,0,0,0);
         public List<string> Headings = new List<string>();
         public List<string> CurrentLine = new List<string>();
+        public string[,] ReducedData;
         
         //make an object
 
@@ -49,8 +50,8 @@ namespace BookingsSorter
             foreach (var worksheet in Workbook.Worksheets(filename))
             {
                 //number of arrays and columns                
-                string[,] Data = new string[worksheet.Rows.Count(),worksheet.NumberOfColumns];                              
-
+                string[,] Data = new string[worksheet.Rows.Count(),worksheet.NumberOfColumns];
+                ReducedData = new string[worksheet.Rows.Count(),6];
                 foreach (var row in worksheet.Rows)
                 {
                     //updates user as to which row hence spectra
@@ -66,7 +67,7 @@ namespace BookingsSorter
                         k++;
                     }
                     dataTransfer.findHeadingPostitons(Headings ,CurrentLine);
-                    dataTransfer.dataEntry(Headings, CurrentLine);
+                    dataTransfer.dataFilter(Headings, CurrentLine, this, Data);
 
                     j++;
                     CurrentLine.Clear();

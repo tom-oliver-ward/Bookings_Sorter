@@ -43,9 +43,16 @@ namespace BookingsSorter
         
         internal void dataEntry(List<string> Headings, List<string> CurrentLine)
         {
-
+         
             
                 
+        }
+
+        internal void dataFilter(List<string> Headings, List<string> CurrentLine, Processing formObject, string[,] Data)
+        {
+            Processing processing = formObject;
+            //Array.Clone()             
+
         }
     }
 }
