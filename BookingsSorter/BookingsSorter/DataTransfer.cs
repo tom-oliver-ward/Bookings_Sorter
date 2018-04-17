@@ -10,7 +10,7 @@ namespace BookingsSorter
     {
         public List<Project> ProjectList=new List<Project>();
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
-        public Dictionary<string, Func<Project>> projectNames = new Dictionary<string, Func<Project>>();
+        public Dictionary<string, Type> projectNames = new Dictionary<string, Type>();
         //Project project = new Project(false, null, null, null, null);
 
         internal void findHeadingPostitons(List<string> CurrentLine)
@@ -41,8 +41,15 @@ namespace BookingsSorter
             else
             {
                 if(projectNames.Count==0)
-                {                    
-                    projectNames.Add(k.ToString(),()=> new Project(false, null, null, null, null));
+                {          
+                    Type projectType = projectNames[k.ToString()];
+                    object myInstance = Activator.CreateInstance(projectType);
+                    Project myproject = (Project)myInstance;
+                    myproject.ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
+                    myproject.Equipment = processing.CurrentLine[headingPostitions.EquipmentPosition];
+                    myproject.Commercial = processing.CurrentLine[Convert.ToBoolean(Convert.ToInt16(headingPostitions.CommercialPosition))];
+
+                    //projectNames.Add(k.ToString(),()=> new Project(false, null, null, null, null));
                 }
                     
                 else
@@ -50,9 +57,9 @@ namespace BookingsSorter
                     
                     for(int i =0;i<projectNames.Count;i++)
                     {
-                        string y = projectNames[i.ToString()].academic;
-                        string x = projectNames(1);
-                        var xx1 = projectNames[i.ToString()];
+                        //string y = projectNames.ke
+                        //string x = projectNames(1);
+                        //var xx1 = projectNames[i.ToString()];
                     }
                 }
               

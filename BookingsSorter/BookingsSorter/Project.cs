@@ -8,16 +8,16 @@ namespace BookingsSorter
 {
     public class Project
     {
-        public bool Academic { get; set; }
+        public int Commercial { get; set; }
         public string ProjectName { get; set; }
         public string Equipment { get; set; }
         public List<string> User = new List<string>();
         public List<int> Hours = new List<int>();
 
 
-        public Project(bool academic, string projectName, string equipment, List<string> user, List<int> hours)
+        public Project(bool commercial, string projectName, string equipment, List<string> user, List<int> hours)
         {
-            Academic = academic;
+            Commercial = commercial;
             ProjectName = projectName;
             Equipment = equipment;
             User = user;
