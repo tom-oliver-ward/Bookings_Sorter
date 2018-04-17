@@ -61,12 +61,12 @@ namespace BookingsSorter
                 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            processing.readExcel(this);
+            processing.readCSV(this);
         }
 
 
-        /// <summary>
-        /// Clears all of the existing spreadsheets from list
+        /// <summary>CurrentLine.Clear();
+        /// Clears all of the existing spreaCurrentLine.Clear();dsheets from list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

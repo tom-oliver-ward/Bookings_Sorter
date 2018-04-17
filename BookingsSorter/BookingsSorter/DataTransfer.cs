@@ -10,56 +10,64 @@ namespace BookingsSorter
     {
         public List<Project> ProjectList=new List<Project>();
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+        public Dictionary<string, Func<Project>> projectNames = new Dictionary<string, Func<Project>>();
         //Project project = new Project(false, null, null, null, null);
 
-        internal void readHeadings(int j, Excel.Cell cell, Processing formObject)
-        {
-            Processing processing = formObject;
-            if(j==0)
-            {
-                processing.Headings.Add(cell.Text);
-            }
-        }
-
-        internal void readCurrentLine(int j, Excel.Cell cell, Processing formObject)
-        {
-            Processing processing = formObject;
-            if (j>=1)
-            {
-                processing.CurrentLine.Add(cell.Text);
-            }
-        }
-
-        internal void findHeadingPostitons(List<string> Headings, List<string> CurrentLine)
+        internal void findHeadingPostitons(List<string> CurrentLine)
         {
             for (int i = 0; i < CurrentLine.Count; i++)
             {
-                if (Headings[i] == "Photon Factory Systems") { headingPostitions.EquipmentPosition = i; }
-                if (Headings[i] == "Start time") { headingPostitions.StartPosition = i; }
-                if (Headings[i] == "Finish time") { headingPostitions.FinishPosition = i; }
-                if (Headings[i] == "Laser User") { headingPostitions.LaserUserPosition = i; }
-                if (Headings[i] == "Project") { headingPostitions.ProjectPosition = i; }
-                if (Headings[i] == "Commercial?") { headingPostitions.CommercialPosition = i; }
+                if (CurrentLine[i] == "Photon Factory Systems") { headingPostitions.EquipmentPosition = i; }
+                if (CurrentLine[i] == "Start time") { headingPostitions.StartPosition = i; }
+                if (CurrentLine[i] == "Finish time") { headingPostitions.FinishPosition = i; }
+                if (CurrentLine[i] == "Laser User") { headingPostitions.LaserUserPosition = i; }
+                if (CurrentLine[i] == "Project") { headingPostitions.ProjectPosition = i; }
+                if (CurrentLine[i] == "Commercial?") { headingPostitions.CommercialPosition = i; }
+            }
+        } 
+        
+
+        internal void writeEntry(int length, int pos, string input, Processing formObject, int k)
+        {
+            Processing processing = formObject;
+            
+            if (processing.headingsRead == false)
+            {
+                findHeadingPostitons(processing.CurrentLine);
+                processing.headingsRead = true;
+                string x = processing.CurrentLine[headingPostitions.ProjectPosition];
+            }
+
+            else
+            {
+                if(projectNames.Count==0)
+                {                    
+                    projectNames.Add(k.ToString(),()=> new Project(false, null, null, null, null));
+                }
+                    
+                else
+                {
+                    
+                    for(int i =0;i<projectNames.Count;i++)
+                    {
+                        string y = projectNames[i.ToString()].academic;
+                        string x = projectNames(1);
+                        var xx1 = projectNames[i.ToString()];
+                    }
+                }
+              
+                
+                processing.Data.Add(processing.CurrentLine);
+
             }
         }
-        
-        internal void dataEntry(List<string> Headings, List<string> CurrentLine)
-        {
 
-            
-                
-        }
-
-        internal void transferLine(List<string> CurrentLine)
+        internal void addToProject(int j, Processing formObject)
         {
-            Dictionary<string,int> projectNames = new Dictionary<string,int>();
-            
-            ProjectList.Find(x => x.ProjectName.Contains("test"));
-            
-            //need itemized list
+            Processing processing = formObject;
             
         }
 
-       
+
     }
 }
