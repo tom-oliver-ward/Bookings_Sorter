@@ -8,14 +8,14 @@ namespace BookingsSorter
 {
     public class Project
     {
-        public int Commercial { get; set; }
+        public bool Commercial { get; set; }
         public string ProjectName { get; set; }
         public string Equipment { get; set; }
         public List<string> User = new List<string>();
-        public List<int> Hours = new List<int>();
+        public List<float> Hours = new List<float>();
 
 
-        public Project(bool commercial, string projectName, string equipment, List<string> user, List<int> hours)
+        public Project(bool commercial, string projectName, string equipment, List<string> user, List<float> hours)
         {
             Commercial = commercial;
             ProjectName = projectName;
