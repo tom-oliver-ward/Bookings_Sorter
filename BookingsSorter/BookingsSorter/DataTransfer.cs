@@ -46,10 +46,11 @@ namespace BookingsSorter
                     object myInstance = Activator.CreateInstance(projectType);
                     Project myproject = (Project)myInstance;
                     myproject.ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
-                    myproject.Equipment = processing.CurrentLine[headingPostitions.EquipmentPosition];
-                    myproject.Commercial = processing.CurrentLine[Convert.ToBoolean(Convert.ToInt16(headingPostitions.CommercialPosition))];
-
-                    //projectNames.Add(k.ToString(),()=> new Project(false, null, null, null, null));
+                    myproject.Equipment = processing.CurrentLine[headingPostitions.EquipmentPosition];                   
+                    myproject.Commercial = Convert.ToBoolean(Convert.ToInt32(processing.CurrentLine[headingPostitions.CommercialPosition]));
+                    myproject.User.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
+                    float hours = hoursCalc(processing);
+                    myproject.Hours.Add(hours);
                 }
                     
                 else
@@ -67,6 +68,55 @@ namespace BookingsSorter
                 processing.Data.Add(processing.CurrentLine);
 
             }
+        }
+
+        private float hoursCalc(Processing formObject)
+        {
+            Processing processing = formObject;
+            int dayS; int dayF; int day;
+            int monthS; int monthF; int month;
+            int yearS; int yearF; int year;
+            int hourS; int hourF; int hour;
+            float minuteS; float minuteF; float minute;
+            float hoursTotal;
+
+            int yearStart = 0;
+            int yearLength = 4;
+            int monthStart = 5;
+            int otherLength = 2;
+            int dayStart = 8;
+            int hourStart = 13;
+            int minuteStart = 16;
+
+            int yearFactor = 8760;
+            float monthFactor = 730;
+            int dayFactor = 24;
+            int minuteInvFactor = 60;
+
+
+            yearS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(yearStart, yearLength));
+            yearF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(yearStart, yearLength));
+            year = yearF - yearS;
+
+            monthS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(monthStart,otherLength));
+            monthF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(monthStart, otherLength));
+            month = monthF - monthS;
+
+            dayS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(dayStart,otherLength));
+            dayF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(dayStart, otherLength));
+            day = dayF - dayS;
+
+            hourS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(hourStart, otherLength));
+            hourF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(hourStart, otherLength));
+            hour = hourF - hourS;
+
+            minuteS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(minuteStart, otherLength));
+            minuteF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(minuteStart, otherLength));
+            minute = minuteF - minuteS;
+
+            hoursTotal = year * yearFactor + month * monthFactor + day * dayFactor + hour + minute / minuteInvFactor;
+
+            return hoursTotal;
         }
 
         internal void addToProject(int j, Processing formObject)
