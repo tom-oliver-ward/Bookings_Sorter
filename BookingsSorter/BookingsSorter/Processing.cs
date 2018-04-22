@@ -12,23 +12,34 @@ namespace BookingsSorter
 
     class Processing
     {
+        //initialises instances
         DataTransfer dataTransfer = new DataTransfer();
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+
+        //initialises list for the current line of the csv file
         public List<string> CurrentLine = new List<string>();
+
+        //compiles all data - may not be needed with new approach
         public List<List<string>> Data = new List<List<string>>();
-        public int ProjectCount = 0;
-        public int pos = 0;
-        public int comma;
-        public int newline;
-        public bool headingsRead = false;
-        public int academicHours;
-        public int commercialHours;
-        public int fsAcademicHours;
-        public int fsCommercialHours;
 
-        //make an object
+        //initialises dictionary for "dynamic" creation of instances of the project list
+        public Dictionary<string, Type> projectNames = new Dictionary<string, Type>();
 
+        //variable initialisation
+        public int ProjectCount = 0;            //Count of Projects
+        public int pos = 0;                     //position holder for reading in lines
+        public int comma;                       //variable for comma position - ie next input
+        public int newline;                     //variable for new line input reading
+        public bool headingsRead = false;       //variable to test for headings read in each file
+        public int academicHours;               //count variable of academic hours
+        public int commercialHours;             //count variable of commercial hours
+        public int fsAcademicHours;             //count variable of femtosecond academic hours
+        public int fsCommercialHours;           //count variable of femteosecond commercial hours
 
+        /// <summary>
+        /// Reads through each spreadsheet and processes the data
+        /// </summary>
+        /// <param name="formObject"></param>
         internal void readCSV(Form1 formObject)
         {
             Form1 form1 = formObject;
@@ -42,11 +53,17 @@ namespace BookingsSorter
                 form1.FilenumTB.Text = "Processing file " + (i + 1) + " of " + length;
                 Application.DoEvents();
 
-                readFile(i, form1);           //Runs process to read the given excel file and extract info & spectra
-                SortData(i, form1);
+                readFile(i, form1);           //reads data into a given line
+                SortData(i, form1);             //may not be required
             }
         }
 
+
+        /// <summary>
+        /// May not be required
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="form1"></param>
         private void SortData(int i, Form1 form1)
         {
             for (int j = 0; j < Data.Count(); j++)
@@ -56,6 +73,11 @@ namespace BookingsSorter
 
         }
 
+        /// <summary>
+        /// Reads the file and passes to a subclass to process the line into an array
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="formObject"></param>
         private void readFile(int i, Form1 formObject)
         {
 
@@ -65,46 +87,49 @@ namespace BookingsSorter
             string Filename = (string)form1.SpreadSheets2Sort.Items[i];
             String input = File.ReadAllText(Filename);           //Reads and extracts important data from spectrum - extracting average values
 
+            //ensures that it stops at the end of the file - maybe can use input/new line value to calculate
             while (newline < input.Count())
             {
-                ArrayMaker(input, form1);
+                ArrayMaker(input, form1);       //proceses the input
             }
         }
 
+        /// <summary>
+        /// finds variable and newline values in the code
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="formObject"></param>
         private void ArrayMaker(string input, Form1 formObject)
         {
             Form1 form1 = formObject;
-            int j = -1;
-            int k = 0;
-            int length = 0;
-            int type = 0;
-            comma = input.IndexOf(",", pos);
-            newline = input.IndexOf("\n", pos);
+            int j = -1;         //initialise count variable for line count
+            int k = 0;          //initialise count variable for ??? project number
+            int length = 0;     //initialise length variable, for the length of each csv entry
+ 
+            comma = input.IndexOf(",", pos);        //finds the next comma indicator
+            newline = input.IndexOf("\n", pos);     //finds the next new line indicator
 
+            //check whether variable is in line or is a newline variable
             if (comma > newline)
-            {
-                length = comma - pos;
-                CurrentLine.Add(input.Substring(pos, length));
+            {                
+                length = comma - pos;                               //length of entry for this condition
+                CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
             }
+            //else if end of line
             else
             {
-                length = newline - pos;
-                CurrentLine.Add(input.Substring(pos, length));
-                dataTransfer.writeEntry(length, pos, input, this, k);
-                j++;
-                //updates user as to which row hence spectra
+                length = newline - pos;                             //length of entry for this condition
+                CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
+                dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line
+                j++;                                                    //adds to line count
+                
+                //updates user as to current line
                 form1.textBoxExcelLine.Text = "Processing line " + (j + 1);
                 Application.DoEvents();
+                //clears the variable
                 CurrentLine.Clear();
             }
-            pos = pos + length;
+            pos = pos + length; //updates position variable
         }
-
-
-
-
-
-
-
     }
 }
