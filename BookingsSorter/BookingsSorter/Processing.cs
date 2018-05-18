@@ -19,8 +19,6 @@ namespace BookingsSorter
         //initialises list for the current line of the csv file
         public List<string> CurrentLine = new List<string>();
 
-        //compiles all data - may not be needed with new approach
-        public List<List<string>> Data = new List<List<string>>();
 
         //initialises dictionary for "dynamic" creation of instances of the project list
         public List<Project> projectList = new List<Project>();
