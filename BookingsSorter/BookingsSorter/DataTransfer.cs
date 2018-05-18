@@ -15,8 +15,8 @@ namespace BookingsSorter
         //initialises instance of class
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
 
-        
-        
+
+
 
         internal void findHeadingPostitons(List<string> CurrentLine)
         {
@@ -29,13 +29,13 @@ namespace BookingsSorter
                 if (CurrentLine[i] == "Project") { headingPostitions.ProjectPosition = i; }
                 if (CurrentLine[i] == "Commercial?") { headingPostitions.CommercialPosition = i; }
             }
-        } 
-        
+        }
+
 
         internal void writeEntry(int length, int pos, string input, Processing formObject, int k)
         {
             Processing processing = formObject;
-            
+
             if (processing.headingsRead == false)
             {
                 findHeadingPostitons(processing.CurrentLine);
@@ -45,36 +45,35 @@ namespace BookingsSorter
 
             else
             {
-                if(processing.projectNames.Count==0)
-                {          
-                    Type projectType = processing.projectNames[k.ToString()];
-                    object myInstance = Activator.CreateInstance(projectType);
-                    Project myproject = (Project)myInstance;
-                    myproject.ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
-                    myproject.Equipment = processing.CurrentLine[headingPostitions.EquipmentPosition];                   
-                    myproject.Commercial = Convert.ToBoolean(Convert.ToInt32(processing.CurrentLine[headingPostitions.CommercialPosition]));
-                    myproject.User.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
-                    float hours = hoursCalc(processing);
-                    myproject.Hours.Add(hours);
-                }
-                    
-                else
+                bool add = true;
+                int posProject = processing.projectList.Count;
+                for (int i = 0; i > processing.projectList.Count; i++)
                 {
-                    
-                    for(int i =0;i< processing.projectNames.Count;i++)
+                    if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
                     {
-                        if(processing.projectNames[i.ToString()]==i)
-                        {
-
-                        }
-
-                        //string y = projectNames.ke
-                        //string x = projectNames(1);
-                        //var xx1 = projectNames[i.ToString()];
+                        add = false;
+                        posProject = i;
                     }
                 }
-              
-                
+
+                if (add)
+                {
+                    processing.projectList.Add(null);
+                    processing.projectList[processing.projectList.Count].ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
+                    processing.projectList[processing.projectList.Count].Equipment.Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
+                    processing.projectList[processing.projectList.Count].Commercial.Add(Convert.ToBoolean(Convert.ToInt32(processing.CurrentLine[headingPostitions.CommercialPosition])));
+                    processing.projectList[processing.projectList.Count].User.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
+                    float hours = hoursCalc(processing);
+                    processing.projectList[processing.projectList.Count].Hours.Add(hours);
+                    add = false;
+                }
+                else
+                {
+                    //how are we going to deal with the data within project name??
+
+                }
+
+
                 processing.Data.Add(processing.CurrentLine);
 
             }
@@ -108,11 +107,11 @@ namespace BookingsSorter
             yearF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(yearStart, yearLength));
             year = yearF - yearS;
 
-            monthS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(monthStart,otherLength));
+            monthS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(monthStart, otherLength));
             monthF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(monthStart, otherLength));
             month = monthF - monthS;
 
-            dayS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(dayStart,otherLength));
+            dayS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(dayStart, otherLength));
             dayF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(dayStart, otherLength));
             day = dayF - dayS;
 
@@ -132,7 +131,7 @@ namespace BookingsSorter
         internal void addToProject(int j, Processing formObject)
         {
             Processing processing = formObject;
-            
+
         }
 
 

@@ -23,7 +23,7 @@ namespace BookingsSorter
         public List<List<string>> Data = new List<List<string>>();
 
         //initialises dictionary for "dynamic" creation of instances of the project list
-        public Dictionary<string, Type> projectNames = new Dictionary<string, Type>();
+        public List<Project> projectList = new List<Project>();
 
         //variable initialisation
         public int ProjectCount = 0;            //Count of Projects
