@@ -52,23 +52,8 @@ namespace BookingsSorter
                 Application.DoEvents();
 
                 readFile(i, form1);           //reads data into a given line
-                SortData(i, form1);             //may not be required
+                
             }
-        }
-
-
-        /// <summary>
-        /// May not be required
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="form1"></param>
-        private void SortData(int i, Form1 form1)
-        {
-            for (int j = 0; j < Data.Count(); j++)
-            {
-                dataTransfer.addToProject(j, this);
-            }
-
         }
 
         /// <summary>

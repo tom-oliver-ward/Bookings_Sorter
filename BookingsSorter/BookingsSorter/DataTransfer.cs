@@ -15,7 +15,12 @@ namespace BookingsSorter
         //initialises instance of class
         HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
         internal bool add = true;                                        //variable to confirm whether to add the current project or if it already exists
-        internal int posProject;          //int position storer for the position of the new project
+        internal int posProject=0;          //int position storer for the position of the new project
+        internal bool addE = true;           //initialises variable for whether to add Equipment
+        internal int posEquipment = 1;       //variable for where to add equipment
+
+        internal bool addU = true;           //variable for whether to add user
+        internal int posUser = 1;            //variable for whether to add Equipment
 
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace BookingsSorter
                 if (add)
                 {
                     addProject(processing);   
-                    add = false;
+                   
                 }
                 //if the project does exist, finds what data needs to be added
                 else
@@ -78,43 +83,123 @@ namespace BookingsSorter
         }
 
         /// <summary>
-        /// Fix Me
+        /// This tests whether a new equipment or user header needs to be added or wether hour addition exists
         /// </summary>
         /// <param name="processing"></param>
         private void testExistingProjectData(Processing processing)
         {
+            //establishes sublist for convenient adding of lists
             List<string> sublist = new List<string>();
-            bool addE = true;
-            int posEquipment = 0;
+
+
+            //tests if equipment exists
+            testExistingEquipment(processing);
+
+            //test if user exists
+            testExistingUser(processing);
+
+            //add Equipment item to existing first list
+            if (addE)
+            {
+                addEquipment(processing);
+            }
+
+            //add user as start of new list
+            if (addU)
+            {
+                addUser(processing);               
+            }
+
+
+        }
+
+        private void addUser(Processing processing)
+        {
+            List<string> sublistU = new List<string>();
+            sublistU.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
+            processing.projectList[posProject].UseageList.Add(sublistU);
+            posUser = 1;
+        }
+
+        private void addEquipment(Processing processing)
+        {
+            processing.projectList[posProject].UseageList[0].Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
+            processing.projectList[posProject].UseageList[0].Add(null);
+            addE = false;
+            posEquipment = 1;
+        }
+
+        private void addHours(Processing processing)
+        {
+            //calculates hours
+            float hours = hoursCalc(processing);
+
+            testHourPosExists(processing);
+
+            sumHours(processing,hours);
+
+            processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);            
+        }
+
+        private void sumHours(Processing processing, float hours)
+        {
+            if (processing.projectList[posProject].UseageList[posUser][posEquipment] == null)
+            {
+                processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);
+            }
+            else
+            {
+                float existing = Convert.ToSingle(processing.projectList[posProject].UseageList[posUser][posEquipment]);
+                hours = hours + existing;
+                processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);
+            }
+        }
+
+
+        private void testHourPosExists(Processing processing)
+        {
+            if (posEquipment <= processing.projectList[posProject].UseageList[posUser].Count-1) { return; }
+            else
+            {
+                while (posEquipment <= processing.projectList[posProject].UseageList[posUser].Count - 1)
+                {
+                    processing.projectList[posProject].UseageList[posUser].Add(null);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tests if given user entry already exists
+        /// </summary>
+        /// <param name="processing"></param>
+        private void testExistingUser(Processing processing)
+        {
+            //iterates through the existing list matrix
+            for (int i = 0; i < processing.projectList[posProject].UseageList.Count; i++)
+            {
+                //tests whether for a match, if so sets addU and stores user position
+                if (processing.CurrentLine[headingPostitions.LaserUserPosition] == processing.projectList[posProject].UseageList[i][0])
+                {
+                    addU = false;
+                    posUser = i;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tests if a given equipment entry exists
+        /// </summary>
+        /// <param name="processing"></param>
+        private void testExistingEquipment(Processing processing)
+        {
+            //iterates through the existing list matrix
             for (int i = 0; i < processing.projectList[posProject].UseageList[0].Count; i++)
             {
+                //tests whether for a match, if so sets addE and stores Equipment position
                 if (processing.CurrentLine[headingPostitions.EquipmentPosition] == processing.projectList[posProject].UseageList[0][i])
                 {
                     addE = false;
                     posEquipment = i;
-                }
-            }
-
-            if (addE)
-            {
-                processing.projectList[posProject].UseageList[0].Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
-
-                bool addU = true;
-                int posUser = 0;
-                for (int i = 0; i < processing.projectList[posProject].UseageList.Count; i++)
-                {
-                    if (processing.CurrentLine[headingPostitions.LaserUserPosition] == processing.projectList[posProject].UseageList[i][0])
-                    {
-                        addU = false;
-                        posUser = i;
-                    }
-                }
-
-                if (addU)
-                {
-                    List<string> sublistU = new List<string>();
-                    sublistU.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
-                    processing.projectList[posProject].UseageList.Add(sublistU);
                 }
             }
         }
@@ -125,35 +210,35 @@ namespace BookingsSorter
         /// <param name="processing"></param>
         private void addProject(Processing processing)
         {
-            //sublist for User data
-            List<string> sublistU = new List<string>();
-            //sublist for equipment data
-            List<string> sublistE = new List<string>();
             //Adds a new instance
             processing.projectList.Add(null);
             //Adds the project name to this instance
             processing.projectList[processing.projectList.Count].ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
 
-            //sets top left corner of "table" (actually list) to blank
-            sublistU.Add(null);
-            //Adds the laser user to sublist U
-            sublistU.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
-            //Adds sublist U to a new line in the "table"
-            processing.projectList[processing.projectList.Count].UseageList.Add(sublistU);
+            //Adds User to list
+            addUser(processing);
 
             //Adds equipment to list
-            sublistE.Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
-            //calculates hours
-            float hours = hoursCalc(processing);
-            //Adds hours to sublistE
-            sublistE.Add(Convert.ToString(hours));
-            //Adds sublist E to "table" of projectList
-            processing.projectList[processing.projectList.Count].UseageList.Add(sublistE);
+            addEquipment(processing);
+
+            //Adds hours
+            addHours(processing);           
+            
+            add = false;
         }
+
+
 
         private void testExistingProject(Processing processing)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i > processing.projectList.Count; i++)
+            {
+                if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
+                {
+                    add = false;
+                    posProject = i;
+                }
+            }
         }
 
         private float hoursCalc(Processing formObject)
@@ -204,19 +289,6 @@ namespace BookingsSorter
 
             return hoursTotal;
         }
-
-        internal void addToProject(int j, Processing processing)
-        {
-            for (int i = 0; i > processing.projectList.Count; i++)
-            {
-                if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
-                {
-                    add = false;
-                    posProject = i;
-                }
-            }
-        }
-
 
     }
 }
