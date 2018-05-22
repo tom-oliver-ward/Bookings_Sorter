@@ -8,7 +8,7 @@ namespace BookingsSorter
 {
     public class CommercialProject : AcademicProject
     {
-        public CommercialProject(bool commercial, string projectName, List<List<string>> useageList) : base(commercial, projectName, useageList)
+        public CommercialProject(string projectName, List<List<string>> useageList) : base(projectName, useageList)
         {
         }
     }

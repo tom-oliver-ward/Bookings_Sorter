@@ -30,8 +30,8 @@ namespace BookingsSorter
         public int comma;                       //variable for comma position - ie next input
         public int newline;                     //variable for new line input reading
         public bool headingsRead = false;       //variable to test for headings read in each file
-        public float academicHours;               //count variable of academic hours
-        public float commercialHours;             //count variable of commercial hours
+        public float academicHours=0;               //count variable of academic hours
+        public float commercialHour=0;             //count variable of commercial hours
 
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BookingsSorter
 
             //sets filename to that of the current spreadsheet
             string Filename = (string)form1.SpreadSheets2Sort.Items[i];
-            String input = File.ReadAllText(Filename);           //Reads and extracts important data from spectrum - extracting average values
+            string input = File.ReadAllText(Filename);           //Reads and extracts important data from spectrum - extracting average values
 
             //ensures that it stops at the end of the file - maybe can use input/new line value to calculate
             while (newline < input.Count())
@@ -93,7 +93,7 @@ namespace BookingsSorter
             newline = input.IndexOf("\n", pos);     //finds the next new line indicator
 
             //check whether variable is in line or is a newline variable
-            if (comma > newline)
+            if (comma < newline)
             {                
                 length = comma - pos;                               //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
@@ -101,7 +101,7 @@ namespace BookingsSorter
             //else if end of line
             else
             {
-                length = newline - pos;                             //length of entry for this condition
+                length = newline - pos - 2;                             //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
                 dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line
                 j++;                                                    //adds to line count
@@ -112,7 +112,7 @@ namespace BookingsSorter
                 //clears the variable
                 CurrentLine.Clear();
             }
-            pos = pos + length; //updates position variable
+            pos = pos + length+1; //updates position variable
         }
     }
 }

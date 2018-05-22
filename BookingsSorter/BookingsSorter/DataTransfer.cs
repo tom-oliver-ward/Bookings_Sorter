@@ -32,7 +32,7 @@ namespace BookingsSorter
         internal void findHeadingPostitons(List<string> CurrentLine)
         {
             for (int i = 0; i < CurrentLine.Count; i++)
-            {
+            {                
                 if (CurrentLine[i] == "Photon Factory Systems") { headingPostitions.EquipmentPosition = i; }
                 if (CurrentLine[i] == "Start time") { headingPostitions.StartPosition = i; }
                 if (CurrentLine[i] == "Finish time") { headingPostitions.FinishPosition = i; }

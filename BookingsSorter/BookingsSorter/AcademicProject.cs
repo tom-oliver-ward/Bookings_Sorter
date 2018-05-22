@@ -11,7 +11,7 @@ namespace BookingsSorter
         public string ProjectName { get; set; }
         public List<List<string>> UseageList = new List<List<string>>();
 
-        public AcademicProject(bool commercial, string projectName, List<List<string>> useageList)
+        public AcademicProject(string projectName, List<List<string>> useageList)
         {
             useageList = UseageList;            
             ProjectName = projectName;

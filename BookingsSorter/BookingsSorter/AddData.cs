@@ -18,12 +18,12 @@ namespace BookingsSorter
             if(dataTransfer.commercial)
             {
                 processing.projectListC.Add(null);
-                processing.projectListC[processing.projectList.Count].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
+                processing.projectListC[processing.projectList.Count-1].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
             }
             else
             {
-                processing.projectList.Add(null);
-                processing.projectList[processing.projectList.Count].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
+                processing.projectList.Add(new AcademicProject(processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition], null));
+                //processing.projectList[processing.projectList.Count-1].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
             }
 
             //Adds User to list
@@ -83,8 +83,16 @@ namespace BookingsSorter
             hours = dataTransfer.sumHours(processing, hours);
 
             //sets the given coordinate to the hours output
-            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours); }
-            else { processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours); }            
+            if (dataTransfer.commercial)
+            {
+                processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
+                processing.commercialHour = processing.commercialHour + hours;
+            }
+            else
+            {
+                processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
+                processing.academicHours = processing.academicHours + hours;
+            }            
         }
     }
 }
