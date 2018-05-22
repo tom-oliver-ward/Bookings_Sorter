@@ -29,10 +29,9 @@ namespace BookingsSorter
         public int comma;                       //variable for comma position - ie next input
         public int newline;                     //variable for new line input reading
         public bool headingsRead = false;       //variable to test for headings read in each file
-        public int academicHours;               //count variable of academic hours
-        public int commercialHours;             //count variable of commercial hours
-        public int fsAcademicHours;             //count variable of femtosecond academic hours
-        public int fsCommercialHours;           //count variable of femteosecond commercial hours
+        public float academicHours;               //count variable of academic hours
+        public float commercialHours;             //count variable of commercial hours
+
 
         /// <summary>
         /// Reads through each spreadsheet and processes the data

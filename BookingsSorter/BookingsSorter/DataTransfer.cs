@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BookingsSorter
 {
@@ -18,6 +19,8 @@ namespace BookingsSorter
 
         internal bool addU = true;           //variable for whether to add user
         internal int posUser = 1;            //variable for whether to add Equipment
+
+        internal bool commercial;
         //test whether these get reset when it reopens
 
 
@@ -78,8 +81,10 @@ namespace BookingsSorter
                 {
                     testExistingProjectData(processing);             
                 }
+                addCommercial(processing);
             }
         }
+
 
         /// <summary>
         /// This tests whether a new equipment or user header needs to be added or wether hour addition exists
@@ -126,8 +131,7 @@ namespace BookingsSorter
             sublistU.Add(null);
             //adds the list to the base list
             processing.projectList[posProject].UseageList.Add(sublistU);
-            //sets the variables back to default
-            posUser = 1;
+
         }
 
         /// <summary>
@@ -139,8 +143,7 @@ namespace BookingsSorter
             //adds the entry
             processing.projectList[posProject].UseageList[0].Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
 
-            //sets the variables back to default            
-            posEquipment = 1;
+
         }
 
         /// <summary>
@@ -257,8 +260,8 @@ namespace BookingsSorter
             //Adds hours
             addHours(processing);
 
-            //resets hours
-            posProject = 0;
+            //Adds commercial hours value
+            processing.projectList[processing.projectList.Count].Commercial = commercial;            
         }
 
         /// <summary>
@@ -267,17 +270,28 @@ namespace BookingsSorter
         /// <param name="processing"></param>
         private void testExistingProject(Processing processing)
         {
+
+            //tests whether project is commercial or not            
+            if (processing.CurrentLine[headingPostitions.CommercialPosition]=="Commercial") { commercial = true; }
+            else { commercial = false; }
+
             //iterates through each instance of project
             for (int i = 0; i > processing.projectList.Count; i++)
             {
                 //tests if the current entry matches any of the existing project names
-                if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
+                if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName
+                    && commercial ==processing.projectList[i].Commercial)
                 {
                     //sets add to false, stores position and breaks
                     add = false;
-                    posProject = i;
-                    break;
+                    posProject = i;                    
                 }
+                else if ((processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName
+                         && commercial != processing.projectList[i].Commercial))
+                {
+                    MessageBox.Show(processing.CurrentLine[headingPostitions.ProjectPosition] + "has entries for both Academic and Commercial");
+                }
+
             }
         }
 
