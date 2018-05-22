@@ -13,9 +13,10 @@ namespace BookingsSorter
 {
     public partial class Form1 : Form
     {
+        //initiallises an instance of Processing
         Processing processing = new Processing();
-        public string file;
-        public List<List<string>> Bookings = new List<List<string>>();
+        //initialises the file location variable
+        public string file;       
 
         public Form1()
         {
@@ -58,15 +59,16 @@ namespace BookingsSorter
             else
                 e.Effect = DragDropEffects.None;
         }
-                
+        
+        //reads and sorts spreadsheet     
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            processing.readExcel(this);
+            processing.readCSV(this);
         }
 
 
-        /// <summary>
-        /// Clears all of the existing spreadsheets from list
+        /// <summary>CurrentLine.Clear();
+        /// Clears all of the existing spreaCurrentLine.Clear();dsheets from list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
