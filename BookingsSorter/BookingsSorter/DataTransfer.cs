@@ -11,15 +11,16 @@ namespace BookingsSorter
     {
 
         //initialises instance of class
-        HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+        public HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+        AddData addData = new AddData();
+        TestExist testExist = new TestExist();
+
         internal bool add = true;                                        //variable to confirm whether to add the current project or if it already exists
         internal int posProject=0;          //int position storer for the position of the new project
         internal bool addE = true;           //initialises variable for whether to add Equipment
         internal int posEquipment = 1;       //variable for where to add equipment
-
         internal bool addU = true;           //variable for whether to add user
         internal int posUser = 1;            //variable for whether to add Equipment
-
         internal bool commercial;
         //test whether these get reset when it reopens
 
@@ -67,111 +68,43 @@ namespace BookingsSorter
 
                 posProject = processing.projectList.Count;
                 //finds if the existing project exists
-                testExistingProject(processing);
+                testExist.testExistingProject(processing,this);
 
 
                 //adds a new project
                 if (add)
                 {
-                    addProject(processing);   
+                    addData.addProject(processing, this, testExist);   
                    
                 }
                 //if the project does exist, finds what data needs to be added
                 else
                 {
-                    testExistingProjectData(processing);             
-                }
-                addCommercial(processing);
+                    // tests if equipment exists
+                    testExist.testExistingEquipment(processing, this);
+                    //test if user exists
+                    testExist.testExistingUser(processing,this);
+
+                    //add Equipment item to existing first list
+                    if (addE) { addData.addEquipment(processing, this); }
+
+                    //add user as start of new list
+                    if (addU){addData.addUser(processing, this); }
+
+                    //add the hours at the appropriate point
+                    addData.addHours(processing, this, testExist);            
+                }                
             }
         }
 
 
         /// <summary>
-        /// This tests whether a new equipment or user header needs to be added or wether hour addition exists
-        /// </summary>
-        /// <param name="processing"></param>
-        private void testExistingProjectData(Processing processing)
-        {
-            //establishes sublist for convenient adding of lists
-            List<string> sublist = new List<string>();
-
-
-            //tests if equipment exists
-            testExistingEquipment(processing);
-
-            //test if user exists
-            testExistingUser(processing);
-
-            //add Equipment item to existing first list
-            if (addE)
-            {
-                addEquipment(processing);
-            }
-
-            //add user as start of new list
-            if (addU)
-            {
-                addUser(processing);               
-            }
-
-
-        }
-
-        /// <summary>
-        /// This creates a new list to add to the base list with the new user listed
-        /// </summary>
-        /// <param name="processing"></param>
-        private void addUser(Processing processing)
-        {
-            //creates list
-            List<string> sublistU = new List<string>();
-            //adds the laser user to the list 
-            sublistU.Add(processing.CurrentLine[headingPostitions.LaserUserPosition]);
-            //adds a null point as each sub list will be at least 2 points long
-            sublistU.Add(null);
-            //adds the list to the base list
-            processing.projectList[posProject].UseageList.Add(sublistU);
-
-        }
-
-        /// <summary>
-        /// This adds the equipment to the first list  in the base list
-        /// </summary>
-        /// <param name="processing"></param>
-        private void addEquipment(Processing processing)
-        {
-            //adds the entry
-            processing.projectList[posProject].UseageList[0].Add(processing.CurrentLine[headingPostitions.EquipmentPosition]);
-
-
-        }
-
-        /// <summary>
-        /// Adds the hours at the specified position by posUser and posEquipment
-        /// </summary>
-        /// <param name="processing"></param>
-        private void addHours(Processing processing)
-        {
-            //calculates hours
-            float hours = hoursCalc(processing);
-
-            //test if there is already an entry at posUser,posEquipment
-            testHourPosExists(processing);
-
-            //adds the hours variable to that given point
-            hours = sumHours(processing,hours);
-
-            //sets the given coordinate to the hours output
-            processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);            
-        }
-
-        /// <summary>
-        /// Tests if there is a value there or not
+        /// Sums the hours to the existing value
         /// </summary>
         /// <param name="processing"></param>
         /// <param name="hours"></param>
         /// <returns></returns>
-        private float sumHours(Processing processing, float hours)
+        internal float sumHours(Processing processing, float hours)
         {
             //is entry null?
             if (processing.projectList[posProject].UseageList[posUser][posEquipment] == null)
@@ -189,118 +122,13 @@ namespace BookingsSorter
             return hours;
         }
 
-        //tests whether the co-ordinate defined by posUser,PosEquipment exists, if not extends required list to that length
-        private void testHourPosExists(Processing processing)
-        {
-            //if long enough, return
-            if (posEquipment <= processing.projectList[posProject].UseageList[posUser].Count-1) { return; }
-            //else add null until it is long enough
-            else
-            {
-                while (posEquipment <= processing.projectList[posProject].UseageList[posUser].Count - 1)
-                {
-                    processing.projectList[posProject].UseageList[posUser].Add(null);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Tests if given user entry already exists
-        /// </summary>
-        /// <param name="processing"></param>
-        private void testExistingUser(Processing processing)
-        {
-            //iterates through the existing list matrix
-            for (int i = 0; i < processing.projectList[posProject].UseageList.Count; i++)
-            {
-                //tests whether for a match, if so sets addU and stores user position
-                if (processing.CurrentLine[headingPostitions.LaserUserPosition] == processing.projectList[posProject].UseageList[i][0])
-                {
-                    addU = false;
-                    posUser = i;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Tests if a given equipment entry exists
-        /// </summary>
-        /// <param name="processing"></param>
-        private void testExistingEquipment(Processing processing)
-        {
-            //iterates through the existing list matrix
-            for (int i = 0; i < processing.projectList[posProject].UseageList[0].Count; i++)
-            {
-                //tests whether for a match, if so sets addE and stores Equipment position
-                if (processing.CurrentLine[headingPostitions.EquipmentPosition] == processing.projectList[posProject].UseageList[0][i])
-                {
-                    addE = false;
-                    posEquipment = i;
-                }
-            }
-        }
-
-        /// <summary>
-        /// If project doesn't exist then it adds it as instance of the class Project to the list (projectList)
-        /// </summary>
-        /// <param name="processing"></param>
-        private void addProject(Processing processing)
-        {
-            //Adds a new instance
-            processing.projectList.Add(null);
-            //Adds the project name to this instance
-            processing.projectList[processing.projectList.Count].ProjectName = processing.CurrentLine[headingPostitions.ProjectPosition];
-
-            //Adds User to list
-            addUser(processing);
-
-            //Adds equipment to list
-            addEquipment(processing);
-
-            //Adds hours
-            addHours(processing);
-
-            //Adds commercial hours value
-            processing.projectList[processing.projectList.Count].Commercial = commercial;            
-        }
-
-        /// <summary>
-        /// Tests if the project already exists
-        /// </summary>
-        /// <param name="processing"></param>
-        private void testExistingProject(Processing processing)
-        {
-
-            //tests whether project is commercial or not            
-            if (processing.CurrentLine[headingPostitions.CommercialPosition]=="Commercial") { commercial = true; }
-            else { commercial = false; }
-
-            //iterates through each instance of project
-            for (int i = 0; i > processing.projectList.Count; i++)
-            {
-                //tests if the current entry matches any of the existing project names
-                if (processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName
-                    && commercial ==processing.projectList[i].Commercial)
-                {
-                    //sets add to false, stores position and breaks
-                    add = false;
-                    posProject = i;                    
-                }
-                else if ((processing.CurrentLine[headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName
-                         && commercial != processing.projectList[i].Commercial))
-                {
-                    MessageBox.Show(processing.CurrentLine[headingPostitions.ProjectPosition] + "has entries for both Academic and Commercial");
-                }
-
-            }
-        }
-
+               
         /// <summary>
         /// Calculates the number of hours for a given bookinh
         /// </summary>
         /// <param name="formObject"></param>
         /// <returns></returns>
-        private float hoursCalc(Processing processing)
+        internal float hoursCalc(Processing processing)
         {
             //variable positions initialised where xS denotes start, xF denotes finish, and x denotes sum
             int dayS; int dayF; int day;

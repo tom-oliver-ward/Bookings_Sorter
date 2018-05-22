@@ -21,7 +21,8 @@ namespace BookingsSorter
 
 
         //initialises dictionary for "dynamic" creation of instances of the project list
-        public List<Project> projectList = new List<Project>();
+        public List<AcademicProject> projectList = new List<AcademicProject>();
+        public List<CommercialProject> projectListC = new List<CommercialProject>();
 
         //variable initialisation
         public int ProjectCount = 0;            //Count of Projects

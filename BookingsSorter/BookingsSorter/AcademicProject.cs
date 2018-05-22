@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace BookingsSorter
 {
-    public class Project
+    public class AcademicProject
     {
-        public bool Commercial { get; set; }
         public string ProjectName { get; set; }
         public List<List<string>> UseageList = new List<List<string>>();
 
-        public Project(bool commercial, string projectName, List<List<string>> useageList)
+        public AcademicProject(bool commercial, string projectName, List<List<string>> useageList)
         {
-            useageList = UseageList;
-            Commercial = commercial;
+            useageList = UseageList;            
             ProjectName = projectName;
         }
     }
