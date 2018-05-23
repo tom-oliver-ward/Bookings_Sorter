@@ -112,7 +112,7 @@ namespace BookingsSorter
                 //clears the variable
                 CurrentLine.Clear();
             }
-            pos = pos + length+1; //updates position variable
+            pos = pos + length+4; //updates position variable
         }
     }
 }
