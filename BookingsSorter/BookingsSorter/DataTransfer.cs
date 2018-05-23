@@ -10,8 +10,7 @@ namespace BookingsSorter
     class DataTransfer
     {
 
-        //initialises instance of class
-        public HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+        //initialises instance of class        
         AddData addData = new AddData();
         TestExist testExist = new TestExist();
 
@@ -29,16 +28,17 @@ namespace BookingsSorter
         /// Reads through Data to find headings positions & stores them
         /// </summary>
         /// <param name="CurrentLine"></param>
-        internal void findHeadingPostitons(List<string> CurrentLine)
+        internal void findHeadingPostitons(List<string> CurrentLine, Processing processing)
         {
             for (int i = 0; i < CurrentLine.Count; i++)
-            {                
-                if (CurrentLine[i] == "Photon Factory Systems") { headingPostitions.EquipmentPosition = i; }
-                if (CurrentLine[i] == "Start time") { headingPostitions.StartPosition = i; }
-                if (CurrentLine[i] == "Finish time") { headingPostitions.FinishPosition = i; }
-                if (CurrentLine[i] == "Laser User") { headingPostitions.LaserUserPosition = i; }
-                if (CurrentLine[i] == "Project") { headingPostitions.ProjectPosition = i; }
-                if (CurrentLine[i] == "Commercial?") { headingPostitions.CommercialPosition = i; }
+            {        
+                        
+                if (CurrentLine[i] == "Photon Factory Systems") {processing.headingPostitions.EquipmentPosition = i; }
+                if (CurrentLine[i] == "Start time") { processing.headingPostitions.StartPosition = i; }
+                if (CurrentLine[i] == "Finish time") { processing.headingPostitions.FinishPosition = i; }
+                if (CurrentLine[i] == "User") { processing.headingPostitions.LaserUserPosition = i; }
+                if (CurrentLine[i] == "Project") { processing.headingPostitions.ProjectPosition = i; }
+                if (CurrentLine[i] == "Commercial?") { processing.headingPostitions.CommercialPosition = i; }
             }
         }
 
@@ -58,7 +58,7 @@ namespace BookingsSorter
             if (processing.headingsRead == false)
             {
                 //reads heading positions
-                findHeadingPostitons(processing.CurrentLine);
+                findHeadingPostitons(processing.CurrentLine, processing);
                 //marks the tracking variable as complete
                 processing.headingsRead = true;                
             }
@@ -155,24 +155,24 @@ namespace BookingsSorter
             int minuteInvFactor = 60;
 
             //reads length of each entry type
-            yearS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(yearStart, yearLength));
-            yearF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(yearStart, yearLength));
+            yearS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(yearStart, yearLength));
+            yearF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(yearStart, yearLength));
             year = yearF - yearS;
 
-            monthS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(monthStart, otherLength));
-            monthF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(monthStart, otherLength));
+            monthS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(monthStart, otherLength));
+            monthF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(monthStart, otherLength));
             month = monthF - monthS;
 
-            dayS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(dayStart, otherLength));
-            dayF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(dayStart, otherLength));
+            dayS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(dayStart, otherLength));
+            dayF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(dayStart, otherLength));
             day = dayF - dayS;
 
-            hourS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(hourStart, otherLength));
-            hourF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(hourStart, otherLength));
+            hourS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(hourStart, otherLength));
+            hourF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(hourStart, otherLength));
             hour = hourF - hourS;
 
-            minuteS = Convert.ToInt32(processing.CurrentLine[headingPostitions.StartPosition].Substring(minuteStart, otherLength));
-            minuteF = Convert.ToInt32(processing.CurrentLine[headingPostitions.FinishPosition].Substring(minuteStart, otherLength));
+            minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart, otherLength));
+            minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart, otherLength));
             minute = minuteF - minuteS;
 
             //sums total hours from all types

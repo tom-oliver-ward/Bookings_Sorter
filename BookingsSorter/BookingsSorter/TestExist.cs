@@ -16,14 +16,14 @@ namespace BookingsSorter
         {
 
             //tests whether project is commercial or not            
-            if (processing.CurrentLine[dataTransfer.headingPostitions.CommercialPosition] == "Commercial") { dataTransfer.commercial = true; }
+            if (processing.CurrentLine[processing.headingPostitions.CommercialPosition] == "Commercial") { dataTransfer.commercial = true; }
             else { dataTransfer.commercial = false; }
 
             if (dataTransfer.commercial)
             {
                 for (int i = 0; i > processing.projectListC.Count; i++)
                 {
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition] == processing.projectListC[i].ProjectName)
+                    if (processing.CurrentLine[processing.headingPostitions.ProjectPosition] == processing.projectListC[i].ProjectName)
                     {
                         dataTransfer.add = false;
                         dataTransfer.posProject = i;
@@ -34,7 +34,7 @@ namespace BookingsSorter
             {
                 for (int i = 0; i > processing.projectList.Count; i++)
                 {
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
+                    if (processing.CurrentLine[processing.headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
                     {
                         dataTransfer.add = false;
                         dataTransfer.posProject = i;
@@ -54,7 +54,7 @@ namespace BookingsSorter
                 for (int i = 0; i < processing.projectListC[dataTransfer.posProject].UseageList[0].Count; i++)
                 {
                     //tests whether for a match, if so sets addE and stores Equipment position
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.EquipmentPosition] == processing.projectListC[dataTransfer.posProject].UseageList[0][i])
+                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectListC[dataTransfer.posProject].UseageList[0][i])
                     {
                         dataTransfer.addE = false;
                         dataTransfer.posEquipment = i;
@@ -66,7 +66,7 @@ namespace BookingsSorter
                 for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList[0].Count; i++)
                 {
                     //tests whether for a match, if so sets addE and stores Equipment position
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.EquipmentPosition] == processing.projectList[dataTransfer.posProject].UseageList[0][i])
+                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectList[dataTransfer.posProject].UseageList[0][i])
                     {
                         dataTransfer.addE = false;
                         dataTransfer.posEquipment = i;
@@ -88,7 +88,7 @@ namespace BookingsSorter
                 for (int i = 0; i < processing.projectListC[dataTransfer.posProject].UseageList.Count; i++)
                 {
                     //tests whether for a match, if so sets addU and stores user position
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.LaserUserPosition] == processing.projectListC[dataTransfer.posProject].UseageList[i][0])
+                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectListC[dataTransfer.posProject].UseageList[i][0])
                     {
                         dataTransfer.addU = false;
                         dataTransfer.posUser = i;
@@ -101,7 +101,7 @@ namespace BookingsSorter
                 for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList.Count; i++)
                 {
                     //tests whether for a match, if so sets addU and stores user position
-                    if (processing.CurrentLine[dataTransfer.headingPostitions.LaserUserPosition] == processing.projectList[dataTransfer.posProject].UseageList[i][0])
+                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectList[dataTransfer.posProject].UseageList[i][0])
                     {
                         dataTransfer.addU = false;
                         dataTransfer.posUser = i;

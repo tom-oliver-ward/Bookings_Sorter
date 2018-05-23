@@ -18,12 +18,12 @@ namespace BookingsSorter
             if(dataTransfer.commercial)
             {
                 processing.projectListC.Add(null);
-                processing.projectListC[processing.projectList.Count-1].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
+                processing.projectListC[processing.projectList.Count-1].ProjectName = processing.CurrentLine[processing.headingPostitions.ProjectPosition];
             }
             else
             {
-                processing.projectList.Add(new AcademicProject(processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition], null));
-                //processing.projectList[processing.projectList.Count-1].ProjectName = processing.CurrentLine[dataTransfer.headingPostitions.ProjectPosition];
+                processing.projectList.Add(new AcademicProject(processing.CurrentLine[processing.headingPostitions.ProjectPosition], null));
+                //processing.projectList[processing.projectList.Count-1].ProjectName = processing.CurrentLine[processing.headingPostitions.ProjectPosition];
             }
 
             //Adds User to list
@@ -46,7 +46,7 @@ namespace BookingsSorter
             //creates list
             List<string> sublistU = new List<string>();
             //adds the laser user to the list 
-            sublistU.Add(processing.CurrentLine[dataTransfer.headingPostitions.LaserUserPosition]);
+            sublistU.Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]);
             //adds a null point as each sub list will be at least 2 points long
             sublistU.Add(null);
             //adds the list to the base list
@@ -62,8 +62,8 @@ namespace BookingsSorter
         internal void addEquipment(Processing processing, DataTransfer dataTransfer)
         {
             //adds the entry
-            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[dataTransfer.headingPostitions.EquipmentPosition]); }
-            else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[dataTransfer.headingPostitions.EquipmentPosition]); }
+            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.EquipmentPosition]); }
+            else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.EquipmentPosition]); }
             
         }
 

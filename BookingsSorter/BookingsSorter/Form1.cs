@@ -14,7 +14,7 @@ namespace BookingsSorter
     public partial class Form1 : Form
     {
         //initiallises an instance of Processing
-        Processing processing = new Processing();
+        Processing processing = new Processing();        
         //initialises the file location variable
         public string file;       
 

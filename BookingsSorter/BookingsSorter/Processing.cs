@@ -14,7 +14,7 @@ namespace BookingsSorter
     {
         //initialises instances
         DataTransfer dataTransfer = new DataTransfer();
-        HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
+        public HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
 
         //initialises list for the current line of the csv file
         public List<string> CurrentLine = new List<string>();
