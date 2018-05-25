@@ -82,10 +82,11 @@ namespace BookingsSorter
                 //if the project does exist, finds what data needs to be added
                 else
                 {
-                    // tests if equipment exists
-                    testExist.testExistingEquipment(processing, this);
                     //test if user exists
                     testExist.testExistingUser(processing, this);
+                    // tests if equipment exists
+                    testExist.testExistingEquipment(processing, this);
+
 
                     //add Equipment item to existing first list
                     if (addE) { addData.addEquipment(processing, this); }
@@ -95,6 +96,15 @@ namespace BookingsSorter
 
                     //add the hours at the appropriate point
                     addData.addHours(processing, this, testExist);
+
+                    add = true;
+                    addE = true;
+                    addU = true;
+
+                    posProject = 0;          //int position storer for the position of the new project
+                    posProjectC = 0;          //int position storer for the position of the new project
+                    posEquipment = 1;       //variable for where to add equipment
+                    posUser = 1;            //variable for whether to add Equipment
                 }
             }
         }
@@ -111,7 +121,7 @@ namespace BookingsSorter
             if (commercial)
             {
                 //is entry null?
-                if (processing.projectListC[posProjectC].UseageList[posUser][posEquipment] == null) { }
+                if (processing.projectListC[posProjectC].UseageList[posEquipment][posUser] == null) { }
                 //else reads current value and adds the new value
                 else
                 {
@@ -122,16 +132,16 @@ namespace BookingsSorter
             else
             {
                 //is entry null?
-                if (processing.projectList[posProject].UseageList[posUser][posEquipment] == null) { }
+                if (processing.projectList[posProject].UseageList[posEquipment][posUser] == null) { }
                 //else reads current value and adds the new value
                 else
                 {
-                    float existing = Convert.ToSingle(processing.projectList[posProject].UseageList[posUser][posEquipment]);
+                    float existing = Convert.ToSingle(processing.projectList[posProject].UseageList[posEquipment][posUser]);
                     hours = hours + existing;
                 }
             }
-            
-            
+
+
             //returns the updated hours variable
             return hours;
         }
@@ -189,7 +199,7 @@ namespace BookingsSorter
             catch (System.FormatException)
             {
                 hourS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(hourStart, otherLength - 1));
-                minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart-1, otherLength));
+                minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart - 1, otherLength));
             }
 
             try
@@ -200,9 +210,9 @@ namespace BookingsSorter
             catch (System.FormatException)
             {
                 hourF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(hourStart, otherLength - 1));
-                minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart-1, otherLength));
+                minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart - 1, otherLength));
             }
-            
+
             hour = hourF - hourS;
             minute = minuteF - minuteS;
 

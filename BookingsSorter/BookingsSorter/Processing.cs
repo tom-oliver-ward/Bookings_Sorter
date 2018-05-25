@@ -28,8 +28,9 @@ namespace BookingsSorter
         public int ProjectCount = 0;            //Count of Projects
         public int pos = 0;                     //position holder for reading in lines
         public int comma;                       //variable for comma position - ie next input
-        public int newline;                     //variable for new line input reading
+        public int newline = 1;                     //variable for new line input reading
         public bool headingsRead = false;       //variable to test for headings read in each file
+        internal bool end = false;
         public float academicHours=0;               //count variable of academic hours
         public float commercialHour=0;             //count variable of commercial hours
 
@@ -71,7 +72,7 @@ namespace BookingsSorter
             string input = File.ReadAllText(Filename);           //Reads and extracts important data from spectrum - extracting average values
 
             //ensures that it stops at the end of the file - maybe can use input/new line value to calculate
-            while (newline < input.Count())
+            while (newline < input.Count() && !end)
             {
                 ArrayMaker(input, form1);       //proceses the input
             }
@@ -100,8 +101,12 @@ namespace BookingsSorter
                 pos = pos + length + 1; //updates position variable
             }
             //else if end of line
-            else
+            else if (newline < 0)
             {
+                end = true;
+            }
+            else
+            {                
                 length = newline - pos - 2;                             //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
                 dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line

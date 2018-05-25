@@ -21,18 +21,18 @@ namespace BookingsSorter
 
             if (dataTransfer.commercial)
             {
-                for (int i = 0; i > processing.projectListC.Count; i++)
+                for (int i = 0; i < processing.projectListC.Count; i++)
                 {
                     if (processing.CurrentLine[processing.headingPostitions.ProjectPosition] == processing.projectListC[i].ProjectName)
                     {
                         dataTransfer.add = false;
-                        dataTransfer.posProject = i;
+                        dataTransfer.posProjectC = i;
                     }
                 }
             }
             else
             {
-                for (int i = 0; i > processing.projectList.Count; i++)
+                for (int i = 0; i < processing.projectList.Count; i++)
                 {
                     if (processing.CurrentLine[processing.headingPostitions.ProjectPosition] == processing.projectList[i].ProjectName)
                     {
@@ -51,26 +51,34 @@ namespace BookingsSorter
         {
             if (dataTransfer.commercial)
             {
-                for (int i = 0; i < processing.projectListC[dataTransfer.posProject].UseageList[0].Count; i++)
+                for (int i = 0; i < processing.projectListC[dataTransfer.posProjectC].UseageList.Count; i++)
                 {
                     //tests whether for a match, if so sets addE and stores Equipment position
-                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectListC[dataTransfer.posProject].UseageList[0][i])
+                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectListC[dataTransfer.posProjectC].UseageList[i][0])
                     {
                         dataTransfer.addE = false;
                         dataTransfer.posEquipment = i;
                     }
                 }
+                if (dataTransfer.addE)
+                {
+                    dataTransfer.posEquipment = processing.projectListC[dataTransfer.posProjectC].UseageList.Count-1;
+                }
             }
             else
             {             //iterates through the existing list matrix
-                for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList[0].Count; i++)
+                for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList.Count; i++)
                 {
                     //tests whether for a match, if so sets addE and stores Equipment position
-                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectList[dataTransfer.posProject].UseageList[0][i])
+                    if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectList[dataTransfer.posProject].UseageList[i][0])
                     {
                         dataTransfer.addE = false;
                         dataTransfer.posEquipment = i;
                     }
+                }
+                if (dataTransfer.addE)
+                {
+                    dataTransfer.posEquipment = processing.projectList[dataTransfer.posProject].UseageList.Count-1;
                 }
             }
 
@@ -85,27 +93,35 @@ namespace BookingsSorter
             if (dataTransfer.commercial)
             {
                 //iterates through the existing list matrix
-                for (int i = 0; i < processing.projectListC[dataTransfer.posProject].UseageList.Count; i++)
+                for (int i = 0; i < processing.projectListC[dataTransfer.posProjectC].UseageList[0].Count; i++)
                 {
                     //tests whether for a match, if so sets addU and stores user position
-                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectListC[dataTransfer.posProject].UseageList[i][0])
+                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectListC[dataTransfer.posProjectC].UseageList[0][i])
                     {
                         dataTransfer.addU = false;
                         dataTransfer.posUser = i;
                     }
                 }
+                if (dataTransfer.addU)
+                {
+                    dataTransfer.posUser = processing.projectListC[dataTransfer.posProjectC].UseageList[0].Count-1;
+                }
             }
             else
             {
                 //iterates through the existing list matrix
-                for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList.Count; i++)
+                for (int i = 0; i < processing.projectList[dataTransfer.posProject].UseageList[0].Count; i++)
                 {
                     //tests whether for a match, if so sets addU and stores user position
-                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectList[dataTransfer.posProject].UseageList[i][0])
+                    if (processing.CurrentLine[processing.headingPostitions.LaserUserPosition] == processing.projectList[dataTransfer.posProject].UseageList[0][i])
                     {
                         dataTransfer.addU = false;
                         dataTransfer.posUser = i;
                     }
+                }
+                if (dataTransfer.addU)
+                {
+                    dataTransfer.posUser = processing.projectList[dataTransfer.posProject].UseageList[0].Count-1;
                 }
             }
 
@@ -117,13 +133,13 @@ namespace BookingsSorter
             if (dataTransfer.commercial)
             {
                 //if long enough, return
-                if (dataTransfer.posUser <= processing.projectList[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Count - 1) { return; }
+                if (dataTransfer.posUser <= processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Count - 1) { return; }
                 //else add null until it is long enough
                 else
                 {
                     while (dataTransfer.posUser > processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Count - 1)
                     {
-                        processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posEquipment].Add(null);
+                        processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Add(null);
                     }
                 }
             }

@@ -14,6 +14,7 @@ namespace BookingsSorter
         /// <param name="processing"></param>
         internal void addProject(Processing processing, DataTransfer dataTransfer, TestExist testExist)
         {
+
             //tests if is commercail, adds a new instance and adds the project name
             if(dataTransfer.commercial)
             {
@@ -53,7 +54,8 @@ namespace BookingsSorter
            // sublistU.Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]);           
             
             //adds the list to the base list
-            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProjectC].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
+            if (dataTransfer.commercial) 
+            { processing.projectListC[dataTransfer.posProjectC].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
             else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
 
             //if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList.Add(sublistU); }
@@ -96,12 +98,12 @@ namespace BookingsSorter
             //sets the given coordinate to the hours output
             if (dataTransfer.commercial)
             {
-                processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
+                processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment][dataTransfer.posUser] = Convert.ToString(hours);
                 processing.commercialHour = processing.commercialHour + hours;
             }
             else
             {
-                processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
+                processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posEquipment][dataTransfer.posUser] = Convert.ToString(hours);
                 processing.academicHours = processing.academicHours + hours;
             }            
         }
