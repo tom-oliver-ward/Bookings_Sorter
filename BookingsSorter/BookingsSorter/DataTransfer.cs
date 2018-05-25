@@ -15,7 +15,8 @@ namespace BookingsSorter
         TestExist testExist = new TestExist();
 
         internal bool add = true;                                        //variable to confirm whether to add the current project or if it already exists
-        internal int posProject=0;          //int position storer for the position of the new project
+        internal int posProject = 0;          //int position storer for the position of the new project
+        internal int posProjectC = 0;          //int position storer for the position of the new project
         internal bool addE = true;           //initialises variable for whether to add Equipment
         internal int posEquipment = 1;       //variable for where to add equipment
         internal bool addU = true;           //variable for whether to add user
@@ -31,9 +32,9 @@ namespace BookingsSorter
         internal void findHeadingPostitons(List<string> CurrentLine, Processing processing)
         {
             for (int i = 0; i < CurrentLine.Count; i++)
-            {        
-                        
-                if (CurrentLine[i] == "Photon Factory Systems") {processing.headingPostitions.EquipmentPosition = i; }
+            {
+
+                if (CurrentLine[i] == "Photon Factory Systems") { processing.headingPostitions.EquipmentPosition = i; }
                 if (CurrentLine[i] == "Start time") { processing.headingPostitions.StartPosition = i; }
                 if (CurrentLine[i] == "Finish time") { processing.headingPostitions.FinishPosition = i; }
                 if (CurrentLine[i] == "User") { processing.headingPostitions.LaserUserPosition = i; }
@@ -60,22 +61,23 @@ namespace BookingsSorter
                 //reads heading positions
                 findHeadingPostitons(processing.CurrentLine, processing);
                 //marks the tracking variable as complete
-                processing.headingsRead = true;                
+                processing.headingsRead = true;
             }
             //Otherwise proceeds to enter data
             else
             {
 
                 posProject = processing.projectList.Count;
+                posProjectC = processing.projectListC.Count;
                 //finds if the existing project exists
-                testExist.testExistingProject(processing,this);
+                testExist.testExistingProject(processing, this);
 
 
                 //adds a new project
                 if (add)
                 {
-                    addData.addProject(processing, this, testExist);   
-                   
+                    addData.addProject(processing, this, testExist);
+
                 }
                 //if the project does exist, finds what data needs to be added
                 else
@@ -83,17 +85,17 @@ namespace BookingsSorter
                     // tests if equipment exists
                     testExist.testExistingEquipment(processing, this);
                     //test if user exists
-                    testExist.testExistingUser(processing,this);
+                    testExist.testExistingUser(processing, this);
 
                     //add Equipment item to existing first list
                     if (addE) { addData.addEquipment(processing, this); }
 
                     //add user as start of new list
-                    if (addU){addData.addUser(processing, this); }
+                    if (addU) { addData.addUser(processing, this); }
 
                     //add the hours at the appropriate point
-                    addData.addHours(processing, this, testExist);            
-                }                
+                    addData.addHours(processing, this, testExist);
+                }
             }
         }
 
@@ -106,23 +108,35 @@ namespace BookingsSorter
         /// <returns></returns>
         internal float sumHours(Processing processing, float hours)
         {
-            //is entry null?
-            if (processing.projectList[posProject].UseageList[posUser][posEquipment] == null)
+            if (commercial)
             {
-                processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);
+                //is entry null?
+                if (processing.projectListC[posProjectC].UseageList[posUser][posEquipment] == null) { }
+                //else reads current value and adds the new value
+                else
+                {
+                    float existing = Convert.ToSingle(processing.projectListC[posProjectC].UseageList[posUser][posEquipment]);
+                    hours = hours + existing;
+                }
             }
-            //else reads current value and adds the new value
             else
             {
-                float existing = Convert.ToSingle(processing.projectList[posProject].UseageList[posUser][posEquipment]);
-                hours = hours + existing;
-                processing.projectList[posProject].UseageList[posUser][posEquipment] = Convert.ToString(hours);
+                //is entry null?
+                if (processing.projectList[posProject].UseageList[posUser][posEquipment] == null) { }
+                //else reads current value and adds the new value
+                else
+                {
+                    float existing = Convert.ToSingle(processing.projectList[posProject].UseageList[posUser][posEquipment]);
+                    hours = hours + existing;
+                }
             }
+            
+            
             //returns the updated hours variable
             return hours;
         }
 
-               
+
         /// <summary>
         /// Calculates the number of hours for a given bookinh
         /// </summary>
@@ -167,12 +181,29 @@ namespace BookingsSorter
             dayF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(dayStart, otherLength));
             day = dayF - dayS;
 
-            hourS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(hourStart, otherLength));
-            hourF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(hourStart, otherLength));
-            hour = hourF - hourS;
+            try
+            {
+                hourS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(hourStart, otherLength));
+                minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart, otherLength));
+            }
+            catch (System.FormatException)
+            {
+                hourS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(hourStart, otherLength - 1));
+                minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart-1, otherLength));
+            }
 
-            minuteS = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.StartPosition].Substring(minuteStart, otherLength));
-            minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart, otherLength));
+            try
+            {
+                hourF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(hourStart, otherLength));
+                minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart, otherLength));
+            }
+            catch (System.FormatException)
+            {
+                hourF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(hourStart, otherLength - 1));
+                minuteF = Convert.ToInt32(processing.CurrentLine[processing.headingPostitions.FinishPosition].Substring(minuteStart-1, otherLength));
+            }
+            
+            hour = hourF - hourS;
             minute = minuteF - minuteS;
 
             //sums total hours from all types

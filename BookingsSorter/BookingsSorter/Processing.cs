@@ -97,6 +97,7 @@ namespace BookingsSorter
             {                
                 length = comma - pos;                               //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
+                pos = pos + length + 1; //updates position variable
             }
             //else if end of line
             else
@@ -111,8 +112,9 @@ namespace BookingsSorter
                 Application.DoEvents();
                 //clears the variable
                 CurrentLine.Clear();
+                pos = pos + length + 3; //updates position variable
             }
-            pos = pos + length+4; //updates position variable
+            
         }
     }
 }

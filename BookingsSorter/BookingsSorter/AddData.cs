@@ -17,13 +17,17 @@ namespace BookingsSorter
             //tests if is commercail, adds a new instance and adds the project name
             if(dataTransfer.commercial)
             {
-                processing.projectListC.Add(null);
-                processing.projectListC[processing.projectList.Count-1].ProjectName = processing.CurrentLine[processing.headingPostitions.ProjectPosition];
+                processing.projectListC.Add(new CommercialProject(processing.CurrentLine[processing.headingPostitions.ProjectPosition], null));
+                List<string> sublist = new List<string>() {null};
+                processing.projectListC[dataTransfer.posProjectC].UseageList.Add(sublist);
+
             }
             else
             {
                 processing.projectList.Add(new AcademicProject(processing.CurrentLine[processing.headingPostitions.ProjectPosition], null));
-                //processing.projectList[processing.projectList.Count-1].ProjectName = processing.CurrentLine[processing.headingPostitions.ProjectPosition];
+                List<string> sublist = new List<string>() { null };
+                processing.projectList[dataTransfer.posProject].UseageList.Add(sublist);
+
             }
 
             //Adds User to list
@@ -44,14 +48,16 @@ namespace BookingsSorter
         internal void addUser(Processing processing, DataTransfer dataTransfer)
         {
             //creates list
-            List<string> sublistU = new List<string>();
+            //List<string> sublistU = new List<string>();
             //adds the laser user to the list 
-            sublistU.Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]);
-            //adds a null point as each sub list will be at least 2 points long
-            sublistU.Add(null);
+           // sublistU.Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]);           
+            
             //adds the list to the base list
-            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList.Add(sublistU); }
-            else { processing.projectList[dataTransfer.posProject].UseageList.Add(sublistU); }
+            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProjectC].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
+            else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
+
+            //if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList.Add(sublistU); }
+            //else { processing.projectList[dataTransfer.posProject].UseageList.Add(sublistU); }
             
         }
 
@@ -61,9 +67,14 @@ namespace BookingsSorter
         /// <param name="processing"></param>
         internal void addEquipment(Processing processing, DataTransfer dataTransfer)
         {
+            //creates list
+            List<string> sublistU = new List<string>();
+            //adds the laser user to the list 
+            sublistU.Add(processing.CurrentLine[processing.headingPostitions.EquipmentPosition]); 
+
             //adds the entry
-            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.EquipmentPosition]); }
-            else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.EquipmentPosition]); }
+            if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProjectC].UseageList.Add(sublistU); }
+            else { processing.projectList[dataTransfer.posProject].UseageList.Add(sublistU); }
             
         }
 
@@ -85,7 +96,7 @@ namespace BookingsSorter
             //sets the given coordinate to the hours output
             if (dataTransfer.commercial)
             {
-                processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
+                processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posUser][dataTransfer.posEquipment] = Convert.ToString(hours);
                 processing.commercialHour = processing.commercialHour + hours;
             }
             else

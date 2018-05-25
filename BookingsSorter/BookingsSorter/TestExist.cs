@@ -117,26 +117,26 @@ namespace BookingsSorter
             if (dataTransfer.commercial)
             {
                 //if long enough, return
-                if (dataTransfer.posEquipment <= processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser].Count - 1) { return; }
+                if (dataTransfer.posUser <= processing.projectList[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Count - 1) { return; }
                 //else add null until it is long enough
                 else
                 {
-                    while (dataTransfer.posEquipment <= processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser].Count - 1)
+                    while (dataTransfer.posUser > processing.projectListC[dataTransfer.posProjectC].UseageList[dataTransfer.posEquipment].Count - 1)
                     {
-                        processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posUser].Add(null);
+                        processing.projectListC[dataTransfer.posProject].UseageList[dataTransfer.posEquipment].Add(null);
                     }
                 }
             }
             else
             {
                 //if long enough, return
-                if (dataTransfer.posEquipment <= processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser].Count - 1) { return; }
+                if (dataTransfer.posUser <= processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posEquipment].Count - 1) { return; }
                 //else add null until it is long enough
                 else
                 {
-                    while (dataTransfer.posEquipment <= processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser].Count - 1)
+                    while (dataTransfer.posUser > processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posEquipment].Count - 1)
                     {
-                        processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posUser].Add(null);
+                        processing.projectList[dataTransfer.posProject].UseageList[dataTransfer.posEquipment].Add(null);
                     }
                 }
             }
