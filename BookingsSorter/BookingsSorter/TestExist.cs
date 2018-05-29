@@ -62,7 +62,7 @@ namespace BookingsSorter
                 }
                 if (dataTransfer.addE)
                 {
-                    dataTransfer.posEquipment = processing.projectListC[dataTransfer.posProjectC].UseageList.Count-1;
+                    dataTransfer.posEquipment = processing.projectListC[dataTransfer.posProjectC].UseageList.Count;
                 }
             }
             else
@@ -78,7 +78,7 @@ namespace BookingsSorter
                 }
                 if (dataTransfer.addE)
                 {
-                    dataTransfer.posEquipment = processing.projectList[dataTransfer.posProject].UseageList.Count-1;
+                    dataTransfer.posEquipment = processing.projectList[dataTransfer.posProject].UseageList.Count;
                 }
             }
 
