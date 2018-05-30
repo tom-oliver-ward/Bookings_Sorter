@@ -90,6 +90,7 @@
             // 
             this.textBoxOutputLoc.Location = new System.Drawing.Point(165, 168);
             this.textBoxOutputLoc.Name = "textBoxOutputLoc";
+            this.textBoxOutputLoc.ReadOnly = true;
             this.textBoxOutputLoc.Size = new System.Drawing.Size(547, 20);
             this.textBoxOutputLoc.TabIndex = 15;
             this.textBoxOutputLoc.TextChanged += new System.EventHandler(this.textBoxOutputLoc_TextChanged);
@@ -126,6 +127,7 @@
             this.button_Clear.TabIndex = 19;
             this.button_Clear.Text = "Clear All";
             this.button_Clear.UseVisualStyleBackColor = true;
+            this.button_Clear.Click += new System.EventHandler(this.button_Clear_Click_1);
             // 
             // folderBrowserDialog1
             // 
@@ -157,7 +159,6 @@
 
         public System.Windows.Forms.ListBox SpreadSheets2Sort;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox_Period;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonOutputLoc;
         public System.Windows.Forms.TextBox textBoxOutputLoc;
@@ -167,6 +168,7 @@
         public System.Windows.Forms.TextBox FilenumTB;
         private System.Windows.Forms.Button button_Clear;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        public System.Windows.Forms.TextBox textBox_Period;
     }
 }
 

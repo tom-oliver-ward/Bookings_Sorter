@@ -67,45 +67,57 @@ namespace BookingsSorter
             else
             {
 
-                posProject = processing.projectList.Count;
-                posProjectC = processing.projectListC.Count;
-                //finds if the existing project exists
-                testExist.testExistingProject(processing, this);
 
 
-                //adds a new project
-                if (add)
-                {
-                    addData.addProject(processing, this, testExist);
+                projectEntry(processing);
+                equipmentEntry(processing);                
+            }
+        }
 
-                }
-                //if the project does exist, finds what data needs to be added
-                else
-                {
-                    //test if user exists
-                    testExist.testExistingUser(processing, this);
-                    // tests if equipment exists
-                    testExist.testExistingEquipment(processing, this);
+        private void equipmentEntry(Processing processing)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void projectEntry(Processing processing)
+        {
+            posProject = processing.projectList.Count;
+            posProjectC = processing.projectListC.Count;
+            //finds if the existing project exists
+
+            testExist.testExistingProject(processing, this);
+            //adds a new project
+            if (add)
+            {
+                addData.addProject(processing, this, testExist);
+
+            }
+            //if the project does exist, finds what data needs to be added
+            else
+            {
+                //test if user exists
+                testExist.testExistingUser(processing, this);
+                // tests if equipment exists
+                testExist.testExistingEquipment(processing, this);
 
 
-                    //add Equipment item to existing first list
-                    if (addE) { addData.addEquipment(processing, this); }
+                //add Equipment item to existing first list
+                if (addE) { addData.addEquipment(processing, this); }
 
-                    //add user as start of new list
-                    if (addU) { addData.addUser(processing, this); }
+                //add user as start of new list
+                if (addU) { addData.addUser(processing, this); }
 
-                    //add the hours at the appropriate point
-                    addData.addHours(processing, this, testExist);
+                //add the hours at the appropriate point
+                addData.addHours(processing, this, testExist);
 
-                    add = true;
-                    addE = true;
-                    addU = true;
+                add = true;
+                addE = true;
+                addU = true;
 
-                    posProject = 0;          //int position storer for the position of the new project
-                    posProjectC = 0;          //int position storer for the position of the new project
-                    posEquipment = 1;       //variable for where to add equipment
-                    posUser = 1;            //variable for whether to add Equipment
-                }
+                posProject = 0;          //int position storer for the position of the new project
+                posProjectC = 0;          //int position storer for the position of the new project
+                posEquipment = 1;       //variable for where to add equipment
+                posUser = 1;            //variable for whether to add Equipment
             }
         }
 

@@ -63,18 +63,15 @@ namespace BookingsSorter
         //reads and sorts spreadsheet     
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            processing.readCSV(this);
-        }
-
-
-        /// <summary>CurrentLine.Clear();
-        /// Clears all of the existing spreaCurrentLine.Clear();dsheets from list
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_Clear_Click(object sender, EventArgs e)
-        {
-            SpreadSheets2Sort.Items.Clear();
+            if (Directory.Exists(textBoxOutputLoc.Text))
+            {
+                processing.readCSV(this);
+            }
+            else
+            {
+                MessageBox.Show("Invalid Folder");
+            }
+            
         }
 
         /// <summary>
@@ -93,16 +90,24 @@ namespace BookingsSorter
         private void textBoxOutputLoc_TextChanged(object sender, EventArgs e)
         {
             buttonSort.Enabled = true;
+
+            
         }
 
         private void textBox_Period_TextChanged(object sender, EventArgs e)
         {
             buttonOutputLoc.Enabled = true;
+            textBoxOutputLoc.ReadOnly = false;
         }
 
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
 
+        }
+
+        private void button_Clear_Click_1(object sender, EventArgs e)
+        {
+            SpreadSheets2Sort.Items.Clear();
         }
     }
 }

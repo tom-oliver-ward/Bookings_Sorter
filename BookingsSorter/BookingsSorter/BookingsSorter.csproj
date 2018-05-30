@@ -51,6 +51,7 @@
     <Compile Include="AddData.cs" />
     <Compile Include="CommercialProject.cs" />
     <Compile Include="DataTransfer.cs" />
+    <Compile Include="DataWriter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

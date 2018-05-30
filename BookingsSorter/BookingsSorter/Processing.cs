@@ -14,22 +14,26 @@ namespace BookingsSorter
     {
         //initialises instances
         DataTransfer dataTransfer = new DataTransfer();
+        DataWriter dataWriter = new DataWriter();
         public HeadingPostitions headingPostitions = new HeadingPostitions(0, 0, 0, 0, 0, 0);
 
         //initialises list for the current line of the csv file
         public List<string> CurrentLine = new List<string>();
 
 
-        //initialises dictionary for "dynamic" creation of instances of the project list
+        //initialises listsary for "dynamic" creation of instances of the project list
         public List<AcademicProject> projectList = new List<AcademicProject>();
         public List<CommercialProject> projectListC = new List<CommercialProject>();
+
+        //initialises list for equipment useage data
+        public List<List<string>> EquipmentList = new List<List<string>>();
 
         //variable initialisation
         public int ProjectCount = 0;            //Count of Projects
         public int pos = 0;                     //position holder for reading in lines
         public int comma;                       //variable for comma position - ie next input
         public int newline = 1;                     //variable for new line input reading
-        public bool headingsRead = false;       //variable to test for headings read in each file
+        public bool headingsRead;      //variable to test for headings read in each file
         internal bool end = false;
         public float academicHours=0;               //count variable of academic hours
         public float commercialHour=0;             //count variable of commercial hours
@@ -48,6 +52,11 @@ namespace BookingsSorter
 
             for (int i = 0; i < length; i++)
             {
+                headingsRead = false;
+                newline = 0;
+                pos = 0;
+                comma = 0;
+                end = false;
                 //updates user on which spreadsheet
                 form1.FilenumTB.Text = "Processing file " + (i + 1) + " of " + length;
                 Application.DoEvents();
@@ -55,6 +64,8 @@ namespace BookingsSorter
                 readFile(i, form1);           //reads data into a given line
                 
             }
+
+            dataWriter.initialiseStream(this, form1);
         }
 
         /// <summary>
