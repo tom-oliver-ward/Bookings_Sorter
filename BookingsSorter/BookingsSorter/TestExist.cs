@@ -121,7 +121,7 @@ namespace BookingsSorter
                 }
                 if (dataTransfer.addU)
                 {
-                    dataTransfer.posUser = processing.projectList[dataTransfer.posProject].UseageList[0].Count-1;
+                    dataTransfer.posUser = processing.projectList[dataTransfer.posProject].UseageList[0].Count;
                 }
             }
 

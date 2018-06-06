@@ -70,7 +70,7 @@ namespace BookingsSorter
 
 
                 projectEntry(processing);
-                equipmentEntry(processing);                
+                //equipmentEntry(processing);                
             }
         }
 

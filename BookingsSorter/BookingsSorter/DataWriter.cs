@@ -42,8 +42,9 @@ namespace BookingsSorter
                         output.Write(column + ",");
                     }
                     output.WriteLine();
-                    output.WriteLine();
+                   
                 }
+                output.WriteLine();
             }
         }
 

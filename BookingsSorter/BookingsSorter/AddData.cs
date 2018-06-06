@@ -48,18 +48,10 @@ namespace BookingsSorter
         /// <param name="processing"></param>
         internal void addUser(Processing processing, DataTransfer dataTransfer)
         {
-            //creates list
-            //List<string> sublistU = new List<string>();
-            //adds the laser user to the list 
-           // sublistU.Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]);           
-            
-            //adds the list to the base list
+
             if (dataTransfer.commercial) 
             { processing.projectListC[dataTransfer.posProjectC].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
             else { processing.projectList[dataTransfer.posProject].UseageList[0].Add(processing.CurrentLine[processing.headingPostitions.LaserUserPosition]); }
-
-            //if (dataTransfer.commercial) { processing.projectListC[dataTransfer.posProject].UseageList.Add(sublistU); }
-            //else { processing.projectList[dataTransfer.posProject].UseageList.Add(sublistU); }
             
         }
 
