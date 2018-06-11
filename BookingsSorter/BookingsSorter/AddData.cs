@@ -99,5 +99,16 @@ namespace BookingsSorter
                 processing.academicHours = processing.academicHours + hours;
             }            
         }
+
+        internal void addEquipmentList(Processing processing, DataTransfer dataTransfer)
+        {
+            processing.equipmentList.Add(new Equipment(null));
+            processing.equipmentList[processing.equipmentList.Count - 1].Equipment[0] = processing.CurrentLine[processing.headingPostitions.EquipmentPosition];
+        }
+
+        internal void addEquipmentListHours(Processing processing, DataTransfer dataTransfer)
+        {
+            
+        }
     }
 }

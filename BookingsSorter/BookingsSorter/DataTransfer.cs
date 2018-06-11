@@ -66,17 +66,23 @@ namespace BookingsSorter
             //Otherwise proceeds to enter data
             else
             {
-
-
-
                 projectEntry(processing);
-                //equipmentEntry(processing);                
+                equipmentEntry(processing);                
             }
         }
 
         private void equipmentEntry(Processing processing)
         {
-            throw new NotImplementedException();
+            posEquipment = processing.equipmentList.Count;
+
+            testExist.testExistingEquipmentList(processing, this);
+
+            if (addE) {addData.addEquipmentList(processing,this); }
+
+            addData.addEquipmentListHours(processing, this);
+
+            posEquipment = 1;
+            addE = true;
         }
 
         private void projectEntry(Processing processing)

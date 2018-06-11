@@ -19,12 +19,15 @@ namespace BookingsSorter
             if (processing.CurrentLine[processing.headingPostitions.CommercialPosition] == "Commercial") { dataTransfer.commercial = true; }
             else { dataTransfer.commercial = false; }
 
+            //if it is commercial
             if (dataTransfer.commercial)
             {
+                //look for an existing project with the same name
                 for (int i = 0; i < processing.projectListC.Count; i++)
                 {
                     if (processing.CurrentLine[processing.headingPostitions.ProjectPosition] == processing.projectListC[i].ProjectName)
                     {
+                        //if so tell it not to add project and record the position of the project
                         dataTransfer.add = false;
                         dataTransfer.posProjectC = i;
                     }
@@ -56,6 +59,7 @@ namespace BookingsSorter
                     //tests whether for a match, if so sets addE and stores Equipment position
                     if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.projectListC[dataTransfer.posProjectC].UseageList[i][0])
                     {
+                        
                         dataTransfer.addE = false;
                         dataTransfer.posEquipment = i;
                     }
@@ -159,5 +163,27 @@ namespace BookingsSorter
             
         }
 
+        /// <summary>
+        /// tests if the equipment item exists in the existing equipment list
+        /// </summary>
+        /// <param name="processing"></param>
+        /// <param name="dataTransfer"></param>
+        internal void testExistingEquipmentList(Processing processing, DataTransfer dataTransfer)
+        {
+            //iterates through existing list, if equipment is found sets addE to false and stores position
+            for(int i=0;i<processing.equipmentList.Count;i++)
+            {
+                if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.equipmentList[dataTransfer.posEquipment].Equipment[0])
+                {
+                    dataTransfer.addE = false;
+                    dataTransfer.posEquipment = i;
+                }                   
+            }
+            //if addE sets pos equipment to the length of list
+            if (dataTransfer.addE)
+            {
+                dataTransfer.posEquipment = processing.equipmentList.Count;
+            }
+        }
     }
 }

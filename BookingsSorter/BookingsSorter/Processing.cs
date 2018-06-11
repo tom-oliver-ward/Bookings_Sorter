@@ -26,7 +26,7 @@ namespace BookingsSorter
         public List<CommercialProject> projectListC = new List<CommercialProject>();
 
         //initialises list for equipment useage data
-        public List<List<string>> EquipmentList = new List<List<string>>();
+        public List<Equipment> equipmentList = new List<Equipment>();
 
         //variable initialisation
         public int ProjectCount = 0;            //Count of Projects
