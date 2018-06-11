@@ -65,7 +65,15 @@ namespace BookingsSorter
                 
             }
 
+            sortLists();
             dataWriter.initialiseStream(this, form1);
+        }
+
+        private void sortLists()
+        {
+            projectList.Sort((x, y) => x.ProjectName.CompareTo(y.ProjectName));
+            projectListC.Sort((x, y) => x.ProjectName.CompareTo(y.ProjectName));
+            equipmentList.Sort((x, y) => x.EquipmentS[0].CompareTo(y.EquipmentS[0]));
         }
 
         /// <summary>

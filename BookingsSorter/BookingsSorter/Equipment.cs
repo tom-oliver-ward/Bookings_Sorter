@@ -8,11 +8,11 @@ namespace BookingsSorter
 {
     public class Equipment
     {
-        public string[] Equipment = new string[6];
+        public string[] EquipmentS = new string[6];
 
         public Equipment(string[] equipment)
         {
-            equipment = Equipment;
+            equipment = EquipmentS;
         }
     }
 }

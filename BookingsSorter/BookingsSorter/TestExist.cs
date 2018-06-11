@@ -173,7 +173,7 @@ namespace BookingsSorter
             //iterates through existing list, if equipment is found sets addE to false and stores position
             for(int i=0;i<processing.equipmentList.Count;i++)
             {
-                if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.equipmentList[dataTransfer.posEquipment].Equipment[0])
+                if (processing.CurrentLine[processing.headingPostitions.EquipmentPosition] == processing.equipmentList[i].EquipmentS[0])
                 {
                     dataTransfer.addE = false;
                     dataTransfer.posEquipment = i;

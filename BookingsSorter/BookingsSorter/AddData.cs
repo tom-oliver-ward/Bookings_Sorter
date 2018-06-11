@@ -103,7 +103,7 @@ namespace BookingsSorter
         internal void addEquipmentList(Processing processing, DataTransfer dataTransfer)
         {
             processing.equipmentList.Add(new Equipment(null));
-            processing.equipmentList[processing.equipmentList.Count - 1].Equipment[0] = processing.CurrentLine[processing.headingPostitions.EquipmentPosition];
+            processing.equipmentList[processing.equipmentList.Count - 1].EquipmentS[0] = processing.CurrentLine[processing.headingPostitions.EquipmentPosition];
         }
 
         internal void addEquipmentListHours(Processing processing, DataTransfer dataTransfer)
@@ -112,11 +112,11 @@ namespace BookingsSorter
 
             if (dataTransfer.commercial)
             {
-                processing.equipmentList[dataTransfer.posEquipment].Equipment[3] = Convert.ToString(hours);
+                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[3] = Convert.ToString(hours);
             }
             else
             {
-                processing.equipmentList[dataTransfer.posEquipment].Equipment[1] = Convert.ToString(hours);
+                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[1] = Convert.ToString(hours);
             }
 
         }

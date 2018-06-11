@@ -69,11 +69,11 @@ namespace BookingsSorter
                 projectEntry(processing);
                 equipmentEntry(processing);                
             }
-        }
+        }        
 
         private void equipmentEntry(Processing processing)
         {
-            posEquipment = processing.equipmentList.Count;
+            posEquipment = processing.equipmentList.Count-1;
 
             testExist.testExistingEquipmentList(processing, this);
 

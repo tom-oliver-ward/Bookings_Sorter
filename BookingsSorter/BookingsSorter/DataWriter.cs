@@ -42,22 +42,23 @@ namespace BookingsSorter
             output.WriteLine();
             output.WriteLine("******");
             output.WriteLine();
-            output.WriteLine();
             output.WriteLine("***EQUIPMENT USEAGE***");
+            output.WriteLine();
+            output.WriteLine(",Acadmic,%,Commercial,%,Total");
 
             foreach (var equipment in processing.equipmentList)
             {
-                float AHours = Convert.ToInt32(equipment.Equipment[1]);
-                float CHours = Convert.ToInt32(equipment.Equipment[3]);
+                float AHours = Convert.ToSingle(equipment.EquipmentS[1]);
+                float CHours = Convert.ToSingle(equipment.EquipmentS[3]);
                 float THours = AHours + CHours;
                 float AHoursPercent = (AHours / THours) * 100;
                 float CHoursPercent = (CHours / THours) * 100;
 
-                equipment.Equipment[2] = Convert.ToString(AHoursPercent) + "%";
-                equipment.Equipment[4] = Convert.ToString(CHoursPercent) + "%";
-                equipment.Equipment[5] = Convert.ToString(THours);
+                equipment.EquipmentS[2] = Convert.ToString(AHoursPercent) + "%";
+                equipment.EquipmentS[4] = Convert.ToString(CHoursPercent) + "%";
+                equipment.EquipmentS[5] = Convert.ToString(THours);
  
-                foreach(var item in equipment.Equipment)
+                foreach(var item in equipment.EquipmentS)
                 {
                     output.Write(item + ",");
                 }
@@ -93,6 +94,8 @@ namespace BookingsSorter
                    
                 }
                 output.WriteLine();
+                output.WriteLine();
+                output.WriteLine();
             }
         }
 
@@ -121,7 +124,8 @@ namespace BookingsSorter
                     output.WriteLine();                    
                 }
                 output.WriteLine();
-
+                output.WriteLine();
+                output.WriteLine();
             }
 
 
