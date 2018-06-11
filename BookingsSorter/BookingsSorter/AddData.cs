@@ -15,7 +15,7 @@ namespace BookingsSorter
         internal void addProject(Processing processing, DataTransfer dataTransfer, TestExist testExist)
         {
 
-            //tests if is commercail, adds a new instance and adds the project name
+            //tests if is commercial, adds a new instance and adds the project name
             if(dataTransfer.commercial)
             {
                 processing.projectListC.Add(new CommercialProject(processing.CurrentLine[processing.headingPostitions.ProjectPosition], null));

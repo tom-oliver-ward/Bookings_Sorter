@@ -9,8 +9,14 @@ namespace BookingsSorter
 {
     class DataWriter
     {
+        /// <summary>
+        /// initialises stream, then calls functions to write the different project sections
+        /// </summary>
+        /// <param name="processing"></param>
+        /// <param name="form1"></param>
         internal void initialiseStream(Processing processing, Form1 form1)
         {
+            //
             string filePath = form1.textBoxOutputLoc.Text + "\\Photon Factory Useage " + form1.textBox_Period.Text + ".csv";
             using (StreamWriter output = new StreamWriter(filePath))
             {
