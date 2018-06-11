@@ -108,7 +108,17 @@ namespace BookingsSorter
 
         internal void addEquipmentListHours(Processing processing, DataTransfer dataTransfer)
         {
-            
+            float hours = dataTransfer.hoursCalc(processing);
+
+            if (dataTransfer.commercial)
+            {
+                processing.equipmentList[dataTransfer.posEquipment].Equipment[3] = Convert.ToString(hours);
+            }
+            else
+            {
+                processing.equipmentList[dataTransfer.posEquipment].Equipment[1] = Convert.ToString(hours);
+            }
+
         }
     }
 }

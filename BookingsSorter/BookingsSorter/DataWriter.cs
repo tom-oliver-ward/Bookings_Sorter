@@ -31,8 +31,41 @@ namespace BookingsSorter
 
                 //writes out the commercial projects
                 commercialProjectDW(processing, output);
+
+                //writes out the equipmwnt useage
+                equipmentUseage(processing, output);
             }
         }
+
+        private void equipmentUseage(Processing processing, StreamWriter output)
+        {
+            output.WriteLine();
+            output.WriteLine("******");
+            output.WriteLine();
+            output.WriteLine();
+            output.WriteLine("***EQUIPMENT USEAGE***");
+
+            foreach (var equipment in processing.equipmentList)
+            {
+                float AHours = Convert.ToInt32(equipment.Equipment[1]);
+                float CHours = Convert.ToInt32(equipment.Equipment[3]);
+                float THours = AHours + CHours;
+                float AHoursPercent = (AHours / THours) * 100;
+                float CHoursPercent = (CHours / THours) * 100;
+
+                equipment.Equipment[2] = Convert.ToString(AHoursPercent) + "%";
+                equipment.Equipment[4] = Convert.ToString(CHoursPercent) + "%";
+                equipment.Equipment[5] = Convert.ToString(THours);
+ 
+                foreach(var item in equipment.Equipment)
+                {
+                    output.Write(item + ",");
+                }
+                output.WriteLine();
+            }
+
+        }
+
 
         /// <summary>
         /// Writes out the commercial projects in the same grid as they are saved
