@@ -17,7 +17,7 @@ namespace BookingsSorter
         internal void initialiseStream(Processing processing, Form1 form1)
         {
             //initialises the file path to save the processed file
-            string filePath = form1.textBoxOutputLoc.Text + "\\Photon Factory Useage " + form1.textBox_Period.Text + ".csv";
+            string filePath = form1.textBoxOutputLoc.Text + "\\Photon Factory Usage " + form1.textBox_Period.Text + ".csv";
             using (StreamWriter output = new StreamWriter(filePath))
             {
                 //writes the header
@@ -42,7 +42,7 @@ namespace BookingsSorter
             output.WriteLine();
             output.WriteLine("******");
             output.WriteLine();
-            output.WriteLine("***EQUIPMENT USEAGE***");
+            output.WriteLine("***EQUIPMENT USAGE***");
             output.WriteLine();
             output.WriteLine(",Acadmic,%,Commercial,%,Total");
 

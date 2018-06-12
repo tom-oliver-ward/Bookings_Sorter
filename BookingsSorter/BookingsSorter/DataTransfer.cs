@@ -71,16 +71,25 @@ namespace BookingsSorter
             }
         }        
 
+        /// <summary>
+        /// adds the equipment useage data specifically
+        /// </summary>
+        /// <param name="processing"></param>
         private void equipmentEntry(Processing processing)
         {
+            //sets the position for equipment by the length of the existing list
             posEquipment = processing.equipmentList.Count-1;
 
+            //tests whether the current equipment exists
             testExist.testExistingEquipmentList(processing, this);
 
+            //if not adds the equipment to the list
             if (addE) {addData.addEquipmentList(processing,this); }
 
+            //adds the hours
             addData.addEquipmentListHours(processing, this);
 
+            //resets the variables
             posEquipment = 1;
             addE = true;
         }

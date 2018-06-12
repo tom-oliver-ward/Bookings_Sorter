@@ -64,7 +64,7 @@ namespace BookingsSorter
                 readFile(i, form1);           //reads data into a given line
                 
             }
-
+            form1.FilenumTB.Text = "Complete";
             sortLists();
             dataWriter.initialiseStream(this, form1);
         }
@@ -129,11 +129,8 @@ namespace BookingsSorter
                 length = newline - pos - 2;                             //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
                 dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line
-                j++;                                                    //adds to line count
-                
-                //updates user as to current line
-                form1.textBoxExcelLine.Text = "Processing line " + (j + 1);
-                Application.DoEvents();
+                j++;                                                   //adds to line count               
+
                 //clears the variable
                 CurrentLine.Clear();
                 pos = pos + length + 3; //updates position variable

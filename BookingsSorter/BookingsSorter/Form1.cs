@@ -108,6 +108,13 @@ namespace BookingsSorter
         private void button_Clear_Click_1(object sender, EventArgs e)
         {
             SpreadSheets2Sort.Items.Clear();
+            processing.CurrentLine.Clear();
+            processing.headingsRead = false;
+            processing.projectList.Clear();
+            processing.projectListC.Clear();
+            processing.equipmentList.Clear();
+            processing.academicHours = 0;
+            processing.commercialHour = 0;
         }
     }
 }

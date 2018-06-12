@@ -35,7 +35,6 @@
             this.buttonOutputLoc = new System.Windows.Forms.Button();
             this.textBoxOutputLoc = new System.Windows.Forms.TextBox();
             this.buttonSort = new System.Windows.Forms.Button();
-            this.textBoxExcelLine = new System.Windows.Forms.TextBox();
             this.FilenumTB = new System.Windows.Forms.TextBox();
             this.button_Clear = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -105,23 +104,16 @@
             this.buttonSort.UseVisualStyleBackColor = true;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
-            // textBoxExcelLine
-            // 
-            this.textBoxExcelLine.Location = new System.Drawing.Point(280, 223);
-            this.textBoxExcelLine.Name = "textBoxExcelLine";
-            this.textBoxExcelLine.Size = new System.Drawing.Size(140, 20);
-            this.textBoxExcelLine.TabIndex = 18;
-            // 
             // FilenumTB
             // 
-            this.FilenumTB.Location = new System.Drawing.Point(280, 251);
+            this.FilenumTB.Location = new System.Drawing.Point(280, 223);
             this.FilenumTB.Name = "FilenumTB";
             this.FilenumTB.Size = new System.Drawing.Size(140, 20);
             this.FilenumTB.TabIndex = 17;
             // 
             // button_Clear
             // 
-            this.button_Clear.Location = new System.Drawing.Point(280, 277);
+            this.button_Clear.Location = new System.Drawing.Point(280, 249);
             this.button_Clear.Name = "button_Clear";
             this.button_Clear.Size = new System.Drawing.Size(140, 23);
             this.button_Clear.TabIndex = 19;
@@ -137,9 +129,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 314);
+            this.ClientSize = new System.Drawing.Size(731, 279);
             this.Controls.Add(this.button_Clear);
-            this.Controls.Add(this.textBoxExcelLine);
             this.Controls.Add(this.FilenumTB);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.textBoxOutputLoc);
@@ -164,7 +155,6 @@
         public System.Windows.Forms.TextBox textBoxOutputLoc;
         private System.Windows.Forms.Button buttonSort;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        public System.Windows.Forms.TextBox textBoxExcelLine;
         public System.Windows.Forms.TextBox FilenumTB;
         private System.Windows.Forms.Button button_Clear;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;

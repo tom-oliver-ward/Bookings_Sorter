@@ -100,23 +100,33 @@ namespace BookingsSorter
             }            
         }
 
+        /// <summary>
+        /// adds the equipment to the list
+        /// </summary>
+        /// <param name="processing"></param>
+        /// <param name="dataTransfer"></param>
         internal void addEquipmentList(Processing processing, DataTransfer dataTransfer)
         {
             processing.equipmentList.Add(new Equipment(null));
             processing.equipmentList[processing.equipmentList.Count - 1].EquipmentS[0] = processing.CurrentLine[processing.headingPostitions.EquipmentPosition];
         }
 
+
         internal void addEquipmentListHours(Processing processing, DataTransfer dataTransfer)
         {
-            float hours = dataTransfer.hoursCalc(processing);
+            //calculates the number of hours
+            float hours = dataTransfer.hoursCalc(processing);            
 
+            //tests whether commercial and adds the existing number of hours 
             if (dataTransfer.commercial)
             {
-                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[3] = Convert.ToString(hours);
+                float hoursSum = hours + Convert.ToSingle(processing.equipmentList[dataTransfer.posEquipment].EquipmentS[3]);
+                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[3] = Convert.ToString(hoursSum);
             }
             else
             {
-                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[1] = Convert.ToString(hours);
+                float hoursSum = hours + Convert.ToSingle(processing.equipmentList[dataTransfer.posEquipment].EquipmentS[1]);
+                processing.equipmentList[dataTransfer.posEquipment].EquipmentS[1] = Convert.ToString(hoursSum);
             }
 
         }
