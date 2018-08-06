@@ -2,7 +2,6 @@ C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\bin\Debug\BookingsSorter.exe
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\bin\Debug\BookingsSorter.pdb
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\bin\Debug\Excel.xml
-C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csprojResolveAssemblyReference.cache
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.Form1.resources
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.Properties.Resources.resources
 C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csproj.GenerateResource.Cache
@@ -29,3 +28,6 @@ F:\Users\tom2s\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\ob
 F:\Users\tom2s\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csproj.CoreCompileInputs.cache
 F:\Users\tom2s\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.exe
 F:\Users\tom2s\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.pdb
+C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csprojAssemblyReference.cache
+C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csproj.CoreCompileInputs.cache
+C:\Users\twar313\Documents\GitHub\Bookings_Sorter\BookingsSorter\BookingsSorter\obj\Debug\BookingsSorter.csproj.CopyComplete

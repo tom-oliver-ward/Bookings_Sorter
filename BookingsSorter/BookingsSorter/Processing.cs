@@ -112,6 +112,11 @@ namespace BookingsSorter
             comma = input.IndexOf(",", pos);        //finds the next comma indicator
             newline = input.IndexOf("\n", pos);     //finds the next new line indicator
 
+            if (comma==4409)
+            {
+                int x = 0;
+            }
+
             //check whether variable is in line or is a newline variable
             if (comma < newline)
             {                
@@ -127,8 +132,12 @@ namespace BookingsSorter
             else
             {                
                 length = newline - pos - 2;                             //length of entry for this condition
-                CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
-                dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line
+
+                if (length>=0)
+                {
+                    CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
+                    dataTransfer.writeEntry(length, pos, input, this, k);   //add entry for this line
+                }
                 j++;                                                   //adds to line count               
 
                 //clears the variable

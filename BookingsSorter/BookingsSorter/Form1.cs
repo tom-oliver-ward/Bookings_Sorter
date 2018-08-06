@@ -89,9 +89,7 @@ namespace BookingsSorter
 
         private void textBoxOutputLoc_TextChanged(object sender, EventArgs e)
         {
-            buttonSort.Enabled = true;
-
-            
+            buttonSort.Enabled = true;            
         }
 
         private void textBox_Period_TextChanged(object sender, EventArgs e)
@@ -114,7 +112,7 @@ namespace BookingsSorter
             processing.projectListC.Clear();
             processing.equipmentList.Clear();
             processing.academicHours = 0;
-            processing.commercialHour = 0;
+            processing.commercialHour = 0;            
         }
     }
 }
