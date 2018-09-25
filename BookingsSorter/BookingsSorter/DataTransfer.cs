@@ -152,7 +152,7 @@ namespace BookingsSorter
                 //else reads current value and adds the new value
                 else
                 {
-                    float existing = Convert.ToSingle(processing.projectListC[posProjectC].UseageList[posUser][posEquipment]);
+                    float existing = Convert.ToSingle(processing.projectListC[posProjectC].UseageList[posEquipment][posUser]);
                     hours = hours + existing;
                 }
             }

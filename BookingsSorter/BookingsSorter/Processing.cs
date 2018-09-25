@@ -118,7 +118,7 @@ namespace BookingsSorter
             }
 
             //check whether variable is in line or is a newline variable
-            if (comma < newline)
+            if (comma < newline && comma!=-1)
             {                
                 length = comma - pos;                               //length of entry for this condition
                 CurrentLine.Add(input.Substring(pos, length));      //runs function to add variable to the current line
