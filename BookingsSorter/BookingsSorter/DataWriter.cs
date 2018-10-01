@@ -44,7 +44,7 @@ namespace BookingsSorter
             output.WriteLine();
             output.WriteLine("***EQUIPMENT USAGE***");
             output.WriteLine();
-            output.WriteLine(",Acadmic,%,Commercial,%,Total");
+            output.WriteLine(",Academic,%,Commercial,%,Total");
 
             foreach (var equipment in processing.equipmentList)
             {
